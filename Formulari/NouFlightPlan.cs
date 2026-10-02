@@ -20,32 +20,19 @@ namespace Formulari
         }
 
         private void afegirButton_Click(object sender, EventArgs e)
-        {
-            
-            int i = 0;
+        {            
             try
-            {
-                
+                {
                     p = new FlightPlan(IDBox.Text, Convert.ToDouble(pXiBox.Text), Convert.ToDouble(pYiBox.Text), Convert.ToDouble(pXfBox.Text), Convert.ToDouble(pYfBox.Text), Convert.ToDouble(velocityBox.Text));
                     MessageBox.Show("s'ha afegit correctament");
-                    IDBox.Clear();
-                    pXiBox.Clear();
-                    pYiBox.Clear();
-                    pXfBox.Clear();
-                    pYfBox.Clear();
-                    velocityBox.Clear();
+                Close();
 
-                  
-            }
+                }
             catch (FormatException)
-            {
-                MessageBox.Show("escriu bé");
-            }
-            
-            
-
+                {
+                    MessageBox.Show("escriu bé");
+                }          
         }
-
         public FlightPlan GetFlightPlan()
         {
             return this.p;

@@ -46,11 +46,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Formulari3.cs">
+    <Compile Include="D_Seguretat_T_Cicle.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Formulari3.Designer.cs">
-      <DependentUpon>Formulari3.cs</DependentUpon>
+    <Compile Include="D_Seguretat_T_Cicle.Designer.cs">
+      <DependentUpon>D_Seguretat_T_Cicle.cs</DependentUpon>
     </Compile>
     <Compile Include="NouFlightPlan.cs">
       <SubType>Form</SubType>
@@ -66,6 +66,15 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Simular.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Simular.Designer.cs">
+      <DependentUpon>Simular.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="D_Seguretat_T_Cicle.resx">
+      <DependentUpon>D_Seguretat_T_Cicle.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="NouFlightPlan.resx">
       <DependentUpon>NouFlightPlan.cs</DependentUpon>
     </EmbeddedResource>
@@ -81,6 +90,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Simular.resx">
+      <DependentUpon>Simular.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -99,6 +111,14 @@
       <Project>{44556c78-fa9f-4cfe-8bbb-87d2116977b9}</Project>
       <Name>FlightLib</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="avio.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="avio2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

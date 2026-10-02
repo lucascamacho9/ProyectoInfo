@@ -48,6 +48,7 @@ namespace FlightLib
 
             }
         }
+        
 
         public void EscribeConsola()
         {
@@ -68,6 +69,12 @@ namespace FlightLib
                 vector[i].SumarNudos(v);
                 i++;
             }
+        }
+
+
+        public int GetNumber()
+        {
+            return this.number;
         }
 
 

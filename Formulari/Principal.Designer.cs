@@ -30,8 +30,9 @@
         {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.oPCIONSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.fORMULARIToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.simularToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -50,23 +51,33 @@
             // oPCIONSToolStripMenuItem
             // 
             this.oPCIONSToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem1,
-            this.fORMULARIToolStripMenuItem});
+            this.fORMULARIToolStripMenuItem,
+            this.fToolStripMenuItem,
+            this.simularToolStripMenuItem});
             this.oPCIONSToolStripMenuItem.Name = "oPCIONSToolStripMenuItem";
             this.oPCIONSToolStripMenuItem.Size = new System.Drawing.Size(105, 29);
             this.oPCIONSToolStripMenuItem.Text = "OPCIONS";
             // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(270, 34);
-            // 
             // fORMULARIToolStripMenuItem
             // 
             this.fORMULARIToolStripMenuItem.Name = "fORMULARIToolStripMenuItem";
-            this.fORMULARIToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
-            this.fORMULARIToolStripMenuItem.Text = "FORMULARI";
+            this.fORMULARIToolStripMenuItem.Size = new System.Drawing.Size(279, 34);
+            this.fORMULARIToolStripMenuItem.Text = "NOU FLIGHT PLAN";
             this.fORMULARIToolStripMenuItem.Click += new System.EventHandler(this.fORMULARIToolStripMenuItem_Click);
+            // 
+            // fToolStripMenuItem
+            // 
+            this.fToolStripMenuItem.Name = "fToolStripMenuItem";
+            this.fToolStripMenuItem.Size = new System.Drawing.Size(279, 34);
+            this.fToolStripMenuItem.Text = "D_Seguretat / T_Cicle";
+            this.fToolStripMenuItem.Click += new System.EventHandler(this.fToolStripMenuItem_Click);
+            // 
+            // simularToolStripMenuItem
+            // 
+            this.simularToolStripMenuItem.Name = "simularToolStripMenuItem";
+            this.simularToolStripMenuItem.Size = new System.Drawing.Size(279, 34);
+            this.simularToolStripMenuItem.Text = "Simular";
+            this.simularToolStripMenuItem.Click += new System.EventHandler(this.simularToolStripMenuItem_Click);
             // 
             // Principal
             // 
@@ -88,8 +99,9 @@
 
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem oPCIONSToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem fORMULARIToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem fToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem simularToolStripMenuItem;
     }
 }
 
