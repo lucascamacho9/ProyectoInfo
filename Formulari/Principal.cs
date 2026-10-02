@@ -22,11 +22,8 @@ namespace Formulari
 
         private void fORMULARIToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            NouFlightPlan form = new NouFlightPlan();
-            form.ShowDialog();
-            FlightPlan p = form.GetFlightPlan();
-            milista.AddFlightPlan(p);
-            
+            NouFlightPlan form = new NouFlightPlan(milista);
+            form.ShowDialog();          
         }
     }
 }
