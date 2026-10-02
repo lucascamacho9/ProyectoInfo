@@ -25,6 +25,8 @@ namespace Formulari
         private void fORMULARIToolStripMenuItem_Click(object sender, EventArgs e)
         {
             NouFlightPlan form = new NouFlightPlan(milista);
+            form.ShowDialog();          
+            NouFlightPlan form = new NouFlightPlan(milista);
             form.ShowDialog();
             
             
