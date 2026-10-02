@@ -71,7 +71,7 @@ namespace Formulari
             int i = 0;
             while (i < miLista.GetNumber())
             {
-                // Per represetnar el vol a la posició i
+                // Per represetnar el vol a la posició i/
                 FlightPlan f = miLista.GetFlightPlan(i);
 
                 // Ubicació
