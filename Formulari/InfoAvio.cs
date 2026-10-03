@@ -26,9 +26,13 @@ namespace Formulari
 
         private void InfoAvio_Load(object sender, EventArgs e)
         {
-            XBox.Text = Convert.ToString(myFlight.GetCurrentPosition().GetX());
-            YBox.Text = Convert.ToString(myFlight.GetCurrentPosition().GetY());
-            speedBox.Text = Convert.ToString(myFlight.GetVelocidad());
+            XBox.Text = myFlight.GetCurrentPosition().GetX().ToString("F2");
+            YBox.Text = myFlight.GetCurrentPosition().GetY().ToString("F2");
+            speedBox.Text = myFlight.GetVelocidad().ToString("F2");
+
+            /// XBox.Text = Convert.ToString(myFlight.GetCurrentPosition().GetX());
+            /// YBox.Text = Convert.ToString(myFlight.GetCurrentPosition().GetY());
+            /// speedBox.Text = Convert.ToString(myFlight.GetVelocidad());
         }
 
         private void buttonClose_Click(object sender, EventArgs e)
