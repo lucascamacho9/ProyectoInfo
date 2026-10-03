@@ -52,6 +52,12 @@
     <Compile Include="D_Seguretat_T_Cicle.Designer.cs">
       <DependentUpon>D_Seguretat_T_Cicle.cs</DependentUpon>
     </Compile>
+    <Compile Include="InfoAvio.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InfoAvio.Designer.cs">
+      <DependentUpon>InfoAvio.cs</DependentUpon>
+    </Compile>
     <Compile Include="NouFlightPlan.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -74,6 +80,9 @@
     </Compile>
     <EmbeddedResource Include="D_Seguretat_T_Cicle.resx">
       <DependentUpon>D_Seguretat_T_Cicle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InfoAvio.resx">
+      <DependentUpon>InfoAvio.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NouFlightPlan.resx">
       <DependentUpon>NouFlightPlan.cs</DependentUpon>

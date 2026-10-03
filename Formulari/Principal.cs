@@ -26,8 +26,7 @@ namespace Formulari
         {
             NouFlightPlan form = new NouFlightPlan(milista);
             form.ShowDialog();          
-            NouFlightPlan form = new NouFlightPlan(milista);
-            form.ShowDialog();
+            
             
             
         }

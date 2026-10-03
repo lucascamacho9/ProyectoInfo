@@ -39,7 +39,6 @@
             this.panelSimular.Name = "panelSimular";
             this.panelSimular.Size = new System.Drawing.Size(500, 426);
             this.panelSimular.TabIndex = 0;
-            this.panelSimular.Paint += new System.Windows.Forms.PaintEventHandler(this.panelSimular_Paint);
             // 
             // buttonMoure
             // 
@@ -60,6 +59,7 @@
             this.Controls.Add(this.panelSimular);
             this.Name = "Simular";
             this.Text = "Simular";
+            this.Load += new System.EventHandler(this.Simular_Load);
             this.ResumeLayout(false);
 
         }

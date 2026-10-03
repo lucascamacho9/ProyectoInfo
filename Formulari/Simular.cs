@@ -31,7 +31,7 @@ namespace Formulari
             distancia_seguretat = d;
 
         }
-        private void panelSimular_Paint(object sender, PaintEventArgs e)
+        private void Simular_Load(object sender, EventArgs e)
         {
             vuelos = new PictureBox[miLista.GetNumber()];
             int i = 0;
@@ -50,7 +50,7 @@ namespace Formulari
                 Position pos = f.GetCurrentPosition();
 
                 // Ubicar el PictureBox
-                p.Location = new Point((int)pos.GetX(),(int)pos.GetY());
+                p.Location = new Point((int)pos.GetX(), (int)pos.GetY());
 
                 // Ajustar el temany de la imatge a 10x10
                 p.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -58,11 +58,23 @@ namespace Formulari
                 // Afegir la imatge de l'avió HA DE ESTAR A LA CARPETA DE LA SOLUCIÓ
                 Bitmap imatge = new Bitmap("avio2.png");
                 p.Image = (Image)imatge;
+
+                p.Tag = i;
+                p.Click += new System.EventHandler(this.ShowFlightInfo);
+
                 panelSimular.Controls.Add(p);
                 vuelos[i] = p;
                 i = i + 1;
             }
+        }
 
+        private void ShowFlightInfo(object sender, EventArgs e)
+        {
+            PictureBox p = (PictureBox)sender;
+            int i = (int)p.Tag;
+            InfoAvio f = new InfoAvio();
+            f.setFlightPlan(miLista.GetFlightPlan(i));
+            f.ShowDialog();
         }
 
         private void buttonMoure_Click(object sender, EventArgs e)
