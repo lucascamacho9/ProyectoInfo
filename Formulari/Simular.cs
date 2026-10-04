@@ -19,7 +19,8 @@ namespace Formulari
         
         // Picture boxes per representar els avions
         PictureBox[] vuelos;
-        
+        bool mostrarLinies = false;
+
         public Simular()
         {
             InitializeComponent();
@@ -92,6 +93,33 @@ namespace Formulari
                 // Ubicar el PictureBox
                 vuelos[i].Location = new Point((int)pos.GetX(), (int)pos.GetY());
                 i = i + 1;
+            }
+        }
+
+        private void buttonLinia_Click(object sender, EventArgs e)
+        {
+            mostrarLinies = !mostrarLinies;
+            panelSimular.Invalidate();
+        }
+
+        private void panelSimular_Paint(object sender, PaintEventArgs e)
+        {
+            if (!mostrarLinies || miLista == null)
+            {
+                return;
+            }
+            System.Drawing.Graphics graphics = e.Graphics;
+            int i = 0;
+            while (i < miLista.GetNumber())
+            {
+                FlightPlan f = miLista.GetFlightPlan(i);
+                Position pos = f.GetCurrentPosition();
+                Position fin = f.GetFinalPosition();
+                // Dibuixar la línia de trajectòria
+                Graphics g = panelSimular.CreateGraphics();
+                Pen pen = new Pen(Color.Red, 2);
+                graphics.DrawLine(pen, (int)pos.GetX(), (int)pos.GetY(), (int)fin.GetX(), (int)fin.GetY());
+                i++;
             }
         }
     }
