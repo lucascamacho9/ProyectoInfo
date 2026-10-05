@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dades.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dades.Designer.cs">
+      <DependentUpon>Dades.cs</DependentUpon>
+    </Compile>
     <Compile Include="D_Seguretat_T_Cicle.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -78,6 +84,9 @@
     <Compile Include="Simular.Designer.cs">
       <DependentUpon>Simular.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Dades.resx">
+      <DependentUpon>Dades.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="D_Seguretat_T_Cicle.resx">
       <DependentUpon>D_Seguretat_T_Cicle.cs</DependentUpon>
     </EmbeddedResource>

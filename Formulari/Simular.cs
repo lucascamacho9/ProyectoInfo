@@ -21,10 +21,36 @@ namespace Formulari
         PictureBox[] vuelos;
         bool mostrarLinies = false;
         bool mostrarElipses = false;
+        bool MoureAutomatic = false;
+        Timer timerAutomatic;
 
         public Simular()
         {
             InitializeComponent();
+            timerAutomatic = new Timer();
+            timerAutomatic.Interval = 250; // 500 ms entre movimientos
+            timerAutomatic.Tick += timerAutomatic_Tick;
+
+
+        }
+
+        private void MoureAvions()
+        {
+            miLista.Mover(temps_cicle);
+            int i = 0;
+            while (i < miLista.GetNumber())
+            {
+                FlightPlan f = miLista.GetFlightPlan(i);
+                Position pos = f.GetCurrentPosition();
+                vuelos[i].Location = new Point((int)pos.GetX(), (int)pos.GetY());
+                i = i + 1;
+            }
+            panelSimular.Invalidate();
+        }
+
+        private void timerAutomatic_Tick(object sender, EventArgs e)
+        {
+            MoureAvions();
         }
         public void SetData(FlightPlanList f, int c, double d)
         {
@@ -66,7 +92,9 @@ namespace Formulari
 
                 panelSimular.Controls.Add(p);
                 vuelos[i] = p;
+
                 i = i + 1;
+                
             }
         }
 
@@ -81,23 +109,9 @@ namespace Formulari
 
         private void buttonMoure_Click(object sender, EventArgs e)
         {
-            miLista.Mover(temps_cicle);
-            int i = 0;
-            while (i < miLista.GetNumber())
-            {
-                // Per represetnar el vol a la posició i/
-                FlightPlan f = miLista.GetFlightPlan(i);
-
-                // Ubicació
-                Position pos = f.GetCurrentPosition();
-
-                // Ubicar el PictureBox
-                vuelos[i].Location = new Point((int)pos.GetX(), (int)pos.GetY());
-                i = i + 1;
-            }
-            panelSimular.Invalidate();
+            MoureAvions();
         }
-
+        
         private void buttonLinia_Click(object sender, EventArgs e)
         {
             mostrarLinies = !mostrarLinies;
@@ -109,6 +123,14 @@ namespace Formulari
             mostrarElipses = !mostrarElipses;
             panelSimular.Invalidate();
         }
+
+        private void buttonAutomatic_Click(object sender, EventArgs e)
+        {
+            MoureAutomatic = !MoureAutomatic;
+            timerAutomatic.Enabled = MoureAutomatic;
+
+        }
+
 
         private void panelSimular_Paint(object sender, PaintEventArgs e)
         {
@@ -142,13 +164,12 @@ namespace Formulari
                     i++;
                 }
             }
-
-
-
-            
-
         }
 
-        
+        private void buttonDades_Click(object sender, EventArgs e)
+        {
+            Dades form = new Dades();
+            form.ShowDialog();
+        }
     }
 }

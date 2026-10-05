@@ -30,7 +30,7 @@ namespace Formulari
                 return;
             }
 
-            if (string.IsNullOrWhiteSpace(IDBox.Text) || string.IsNullOrWhiteSpace(pXiBox.Text) || string.IsNullOrWhiteSpace(pYiBox.Text) || string.IsNullOrWhiteSpace(pXfBox.Text) || string.IsNullOrWhiteSpace(pYfBox.Text) || string.IsNullOrWhiteSpace(velocityBox.Text))
+            if (IDBox.Text== null || pXiBox.Text == null || pYiBox.Text == null || string.IsNullOrWhiteSpace(pXfBox.Text) || string.IsNullOrWhiteSpace(pYfBox.Text) || string.IsNullOrWhiteSpace(velocityBox.Text))
             {
                 MessageBox.Show("Has d'omplir tots els camps abans d'afegir.");
                 return;
@@ -55,6 +55,11 @@ namespace Formulari
             {
                 MessageBox.Show("escriu bé");
             }
+        }
+
+        private void buttonTancar_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

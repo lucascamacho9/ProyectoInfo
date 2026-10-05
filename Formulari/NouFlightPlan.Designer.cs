@@ -41,16 +41,18 @@
             this.label5 = new System.Windows.Forms.Label();
             this.pXfBox = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.buttonTancar = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // afegirButton
             // 
+            this.afegirButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.afegirButton.Location = new System.Drawing.Point(319, 257);
             this.afegirButton.Name = "afegirButton";
             this.afegirButton.Size = new System.Drawing.Size(162, 61);
             this.afegirButton.TabIndex = 17;
             this.afegirButton.Text = "AFEGIR";
-            this.afegirButton.UseVisualStyleBackColor = true;
+            this.afegirButton.UseVisualStyleBackColor = false;
             this.afegirButton.Click += new System.EventHandler(this.afegirButton_Click);
             // 
             // velocityBox
@@ -149,11 +151,23 @@
             this.label6.TabIndex = 18;
             this.label6.Text = "pXf";
             // 
+            // buttonTancar
+            // 
+            this.buttonTancar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.buttonTancar.Location = new System.Drawing.Point(624, 360);
+            this.buttonTancar.Name = "buttonTancar";
+            this.buttonTancar.Size = new System.Drawing.Size(124, 42);
+            this.buttonTancar.TabIndex = 22;
+            this.buttonTancar.Text = "TANCAR";
+            this.buttonTancar.UseVisualStyleBackColor = false;
+            this.buttonTancar.Click += new System.EventHandler(this.buttonTancar_Click);
+            // 
             // NouFlightPlan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.buttonTancar);
             this.Controls.Add(this.pYfBox);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.pXfBox);
@@ -189,5 +203,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox pXfBox;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button buttonTancar;
     }
 }
