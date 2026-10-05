@@ -20,6 +20,7 @@ namespace Formulari
         // Picture boxes per representar els avions
         PictureBox[] vuelos;
         bool mostrarLinies = false;
+        bool mostrarElipses = false;
 
         public Simular()
         {
@@ -94,6 +95,7 @@ namespace Formulari
                 vuelos[i].Location = new Point((int)pos.GetX(), (int)pos.GetY());
                 i = i + 1;
             }
+            panelSimular.Invalidate();
         }
 
         private void buttonLinia_Click(object sender, EventArgs e)
@@ -102,25 +104,51 @@ namespace Formulari
             panelSimular.Invalidate();
         }
 
+        private void buttonElipse_Click(object sender, EventArgs e)
+        {
+            mostrarElipses = !mostrarElipses;
+            panelSimular.Invalidate();
+        }
+
         private void panelSimular_Paint(object sender, PaintEventArgs e)
         {
-            if (!mostrarLinies || miLista == null)
+            if (miLista == null)
             {
                 return;
             }
-            System.Drawing.Graphics graphics = e.Graphics;
-            int i = 0;
-            while (i < miLista.GetNumber())
+            using (Pen penLinia = new Pen(Color.Red, 2))
+            using (Pen penElipse = new Pen(Color.Blue, 1))
             {
-                FlightPlan f = miLista.GetFlightPlan(i);
-                Position pos = f.GetCurrentPosition();
-                Position fin = f.GetFinalPosition();
-                // Dibuixar la línia de trajectòria
-                Graphics g = panelSimular.CreateGraphics();
-                Pen pen = new Pen(Color.Red, 2);
-                graphics.DrawLine(pen, (int)pos.GetX(), (int)pos.GetY(), (int)fin.GetX(), (int)fin.GetY());
-                i++;
+                int i = 0;
+                while (i < miLista.GetNumber())
+                {
+                    FlightPlan f = miLista.GetFlightPlan(i);
+
+                    if (mostrarLinies)
+                    {
+                        Position pos = f.GetCurrentPosition();
+                        Position fin = f.GetFinalPosition();
+                        // Dibuixar la línia de trajectòria
+                        // Pen penLinia = new Pen(Color.Red, 2);
+                        e.Graphics.DrawLine(penLinia, (int)pos.GetX(), (int)pos.GetY(), (int)fin.GetX(), (int)fin.GetY());
+                    }
+                    if (mostrarElipses)
+                    {
+                        Position pos = f.GetCurrentPosition();
+                        float r = (float)distancia_seguretat;
+                        //Pen penElipse = new Pen(Color.Blue, 1);
+                        e.Graphics.DrawEllipse(penElipse, (int)pos.GetX() - (int)r, (int)pos.GetY() - (int)r, 2 * (int)r, 2 * (int)r);
+                    }
+                    i++;
+                }
             }
+
+
+
+            
+
         }
+
+        
     }
 }

@@ -71,6 +71,7 @@
             this.buttonElipse.TabIndex = 3;
             this.buttonElipse.Text = "El·lipse de Seguretat";
             this.buttonElipse.UseVisualStyleBackColor = true;
+            this.buttonElipse.Click += new System.EventHandler(this.buttonElipse_Click);
             // 
             // Simular
             // 
