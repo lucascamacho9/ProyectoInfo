@@ -52,6 +52,12 @@
     <Compile Include="Dades.Designer.cs">
       <DependentUpon>Dades.cs</DependentUpon>
     </Compile>
+    <Compile Include="Distancia_Entre_Vols.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Distancia_Entre_Vols.Designer.cs">
+      <DependentUpon>Distancia_Entre_Vols.cs</DependentUpon>
+    </Compile>
     <Compile Include="D_Seguretat_T_Cicle.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -86,6 +92,9 @@
     </Compile>
     <EmbeddedResource Include="Dades.resx">
       <DependentUpon>Dades.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Distancia_Entre_Vols.resx">
+      <DependentUpon>Distancia_Entre_Vols.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="D_Seguretat_T_Cicle.resx">
       <DependentUpon>D_Seguretat_T_Cicle.cs</DependentUpon>

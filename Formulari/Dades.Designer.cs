@@ -28,37 +28,52 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.avionsView = new System.Windows.Forms.DataGridView();
+            this.buttonClose = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.avionsView)).BeginInit();
             this.SuspendLayout();
             // 
-            // dataGridView1
+            // avionsView
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.dataGridView1.Location = new System.Drawing.Point(122, 76);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersWidth = 62;
-            this.dataGridView1.RowTemplate.Height = 28;
-            this.dataGridView1.Size = new System.Drawing.Size(526, 281);
-            this.dataGridView1.TabIndex = 0;
+            this.avionsView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.avionsView.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.avionsView.Location = new System.Drawing.Point(112, 40);
+            this.avionsView.Name = "avionsView";
+            this.avionsView.RowHeadersWidth = 62;
+            this.avionsView.RowTemplate.Height = 28;
+            this.avionsView.Size = new System.Drawing.Size(526, 281);
+            this.avionsView.TabIndex = 0;
+            this.avionsView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.avionsView_CellContentClick);
+            // 
+            // buttonClose
+            // 
+            this.buttonClose.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.buttonClose.Location = new System.Drawing.Point(296, 353);
+            this.buttonClose.Name = "buttonClose";
+            this.buttonClose.Size = new System.Drawing.Size(154, 53);
+            this.buttonClose.TabIndex = 1;
+            this.buttonClose.Text = "TANCAR";
+            this.buttonClose.UseVisualStyleBackColor = false;
+            this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
             // 
             // Dades
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.buttonClose);
+            this.Controls.Add(this.avionsView);
             this.Name = "Dades";
             this.Text = "Dades";
             this.Load += new System.EventHandler(this.Dades_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.avionsView)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView avionsView;
+        private System.Windows.Forms.Button buttonClose;
     }
 }

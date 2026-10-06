@@ -169,6 +169,7 @@ namespace Formulari
         private void buttonDades_Click(object sender, EventArgs e)
         {
             Dades form = new Dades();
+            form.TomaLista(miLista);
             form.ShowDialog();
         }
     }
