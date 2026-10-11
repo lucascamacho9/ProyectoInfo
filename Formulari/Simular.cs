@@ -28,7 +28,7 @@ namespace Formulari
         {
             InitializeComponent();
             timerAutomatic = new Timer();
-            timerAutomatic.Interval = 250; // 500 ms entre movimientos
+            timerAutomatic.Interval = 250; // 250 ms entre movimientos
             timerAutomatic.Tick += timerAutomatic_Tick;
 
 
