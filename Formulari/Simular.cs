@@ -42,7 +42,7 @@ namespace Formulari
             {
                 FlightPlan f = miLista.GetFlightPlan(i);
                 Position pos = f.GetCurrentPosition();
-                vuelos[i].Location = new Point((int)pos.GetX(), (int)pos.GetY());
+                vuelos[i].Location = new Point((int)pos.GetX()-10/2, (int)pos.GetY()-10/2);
                 i = i + 1;
             }
 
@@ -114,20 +114,23 @@ namespace Formulari
                 // Configurar el picture box
                 p.Width = 10;
                 p.Height = 10;
-                p.ClientSize = new Size(10, 10);
+                ///p.ClientSize = new Size(10, 10);
 
                 // Ubicació
                 Position pos = f.GetCurrentPosition();
 
-                // Ubicar el PictureBox
-                p.Location = new Point((int)pos.GetX(), (int)pos.GetY());
+                // Ubicar el PictureBox  (es resta 10 (que es el tamany) i dividit entre 2 perquè quedi centrat)
+                p.Location = new Point((int)pos.GetX()-10/2, (int)pos.GetY()-10/2);
 
                 // Ajustar el temany de la imatge a 10x10
-                p.SizeMode = PictureBoxSizeMode.StretchImage;
+                /// p.SizeMode = PictureBoxSizeMode.StretchImage;
+
+                p.Size = new Size(10, 10);
+                p.BackColor = Color.Red;
 
                 // Afegir la imatge de l'avió HA DE ESTAR A LA CARPETA DE LA SOLUCIÓ
-                Bitmap imatge = new Bitmap("avio2.png");
-                p.Image = (Image)imatge;
+                ///Bitmap imatge = new Bitmap("avio2.png");
+                ///p.Image = (Image)imatge;
 
                 p.Tag = i;
                 p.Click += new System.EventHandler(this.ShowFlightInfo);
