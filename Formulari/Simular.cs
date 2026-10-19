@@ -30,8 +30,6 @@ namespace Formulari
             timerAutomatic = new Timer();
             timerAutomatic.Interval = 250; // 250 ms entre movimientos
             timerAutomatic.Tick += timerAutomatic_Tick;
-
-
         }
 
         private void MoureAvions()
@@ -81,6 +79,7 @@ namespace Formulari
                 lblAlerta.Text = "¡Peligro! Distancia de seguridad infringida.";
                 lblAlerta.ForeColor = Color.Red;
             }
+
             else
             {
                 panelSimular.BackColor = SystemColors.Control;
