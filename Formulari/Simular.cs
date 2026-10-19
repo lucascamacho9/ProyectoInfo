@@ -61,6 +61,7 @@ namespace Formulari
         }
         private void Simular_Load(object sender, EventArgs e)
         {
+
             vuelos = new PictureBox[miLista.GetNumber()];
             int i = 0;
             while (i < miLista.GetNumber())
@@ -97,7 +98,7 @@ namespace Formulari
                 
             }
         }
-
+        
         private void ShowFlightInfo(object sender, EventArgs e)
         {
             PictureBox p = (PictureBox)sender;
