@@ -132,7 +132,7 @@ namespace FlightLib
         public bool EstaEnDestino()
         {
             bool resultado = false;
-            if (currentPosition == finalPosition)
+            if (currentPosition.Distancia(finalPosition) == 0)
                 resultado = true;
             return resultado;
         }
@@ -140,7 +140,7 @@ namespace FlightLib
         public bool Conflicto(FlightPlan b, double distanciaSeguridad)
 
         {
-            bool conflicto = true;
+            bool conflicto = false;
             if (this.currentPosition.Distancia(b.currentPosition) < (distanciaSeguridad))
                 conflicto = true;
             return conflicto;

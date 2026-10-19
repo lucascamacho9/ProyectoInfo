@@ -42,6 +42,10 @@
             this.pXfBox = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.buttonTancar = new System.Windows.Forms.Button();
+            this.buttonFP1 = new System.Windows.Forms.Button();
+            this.buttonFP2 = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // afegirButton
@@ -162,11 +166,53 @@
             this.buttonTancar.UseVisualStyleBackColor = false;
             this.buttonTancar.Click += new System.EventHandler(this.buttonTancar_Click);
             // 
+            // buttonFP1
+            // 
+            this.buttonFP1.Location = new System.Drawing.Point(61, 334);
+            this.buttonFP1.Name = "buttonFP1";
+            this.buttonFP1.Size = new System.Drawing.Size(123, 36);
+            this.buttonFP1.TabIndex = 23;
+            this.buttonFP1.Text = "Flight Plan 1";
+            this.buttonFP1.UseVisualStyleBackColor = true;
+            this.buttonFP1.Click += new System.EventHandler(this.buttonFP1_Click);
+            // 
+            // buttonFP2
+            // 
+            this.buttonFP2.Location = new System.Drawing.Point(61, 378);
+            this.buttonFP2.Name = "buttonFP2";
+            this.buttonFP2.Size = new System.Drawing.Size(123, 35);
+            this.buttonFP2.TabIndex = 24;
+            this.buttonFP2.Text = "Flight Plan 2";
+            this.buttonFP2.UseVisualStyleBackColor = true;
+            this.buttonFP2.Click += new System.EventHandler(this.buttonFP2_Click);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(65, 277);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(123, 20);
+            this.label7.TabIndex = 25;
+            this.label7.Text = "FLIGHT PLANS";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(63, 298);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(121, 20);
+            this.label8.TabIndex = 26;
+            this.label8.Text = "PER DEFECTE";
+            // 
             // NouFlightPlan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.buttonFP2);
+            this.Controls.Add(this.buttonFP1);
             this.Controls.Add(this.buttonTancar);
             this.Controls.Add(this.pYfBox);
             this.Controls.Add(this.label5);
@@ -204,5 +250,9 @@
         private System.Windows.Forms.TextBox pXfBox;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button buttonTancar;
+        private System.Windows.Forms.Button buttonFP1;
+        private System.Windows.Forms.Button buttonFP2;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
     }
 }

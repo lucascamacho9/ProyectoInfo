@@ -42,12 +42,54 @@ namespace Formulari
             {
                 FlightPlan f = miLista.GetFlightPlan(i);
                 Position pos = f.GetCurrentPosition();
-                vuelos[i].Location = new Point((int)pos.GetX(), (int)pos.GetY());
+                vuelos[i].Location = new Point((int)pos.GetX()-10/2, (int)pos.GetY()-10/2);
                 i = i + 1;
             }
+
+            VerificarConflictosActuales();
+
             panelSimular.Invalidate();
         }
 
+        private void VerificarConflictosActuales()
+        {
+            bool alerta = false;
+
+            for (int i = 0; i < miLista.GetNumber(); i++)
+            {
+                for (int j = i + 1; j < miLista.GetNumber(); j++)
+                {
+                    Position posA = miLista.GetFlightPlan(i).GetCurrentPosition();
+                    Position posB = miLista.GetFlightPlan(j).GetCurrentPosition();
+
+                    // Distancia
+                    double difX = posA.GetX() - posB.GetX();
+                    double difY = posA.GetY() - posB.GetY();
+                    double distancia = Math.Sqrt((difX * difX) + (difY * difY));
+
+                    if (distancia < distancia_seguretat)
+                    {
+                        alerta = true;
+                    }
+                }
+            }
+
+            // Acción visual
+            if (alerta)
+            {
+                panelSimular.BackColor = Color.LightCoral;
+                lblAlerta.Text = "¡Peligro! Distancia de seguridad infringida.";
+                lblAlerta.ForeColor = Color.Red;
+            }
+            else
+            {
+                panelSimular.BackColor = Color.FromArgb(255, 255, 128);
+                lblAlerta.Text = "Separación segura.";
+                lblAlerta.ForeColor = Color.Green;
+            }
+
+
+        }
         private void timerAutomatic_Tick(object sender, EventArgs e)
         {
             MoureAvions();
@@ -73,20 +115,23 @@ namespace Formulari
                 // Configurar el picture box
                 p.Width = 10;
                 p.Height = 10;
-                p.ClientSize = new Size(10, 10);
+                ///p.ClientSize = new Size(10, 10);
 
                 // Ubicació
                 Position pos = f.GetCurrentPosition();
 
-                // Ubicar el PictureBox
-                p.Location = new Point((int)pos.GetX(), (int)pos.GetY());
+                // Ubicar el PictureBox  (es resta 10 (que es el tamany) i dividit entre 2 perquè quedi centrat)
+                p.Location = new Point((int)pos.GetX()-10/2, (int)pos.GetY()-10/2);
 
-                // Ajustar el temany de la imatge a 10x10
-                p.SizeMode = PictureBoxSizeMode.StretchImage;
+                // Ajustar el tamany de la imatge a 10x10
+                /// p.SizeMode = PictureBoxSizeMode.StretchImage;
+
+                p.Size = new Size(10, 10);
+                p.BackColor = Color.Red;
 
                 // Afegir la imatge de l'avió HA DE ESTAR A LA CARPETA DE LA SOLUCIÓ
-                Bitmap imatge = new Bitmap("avio2.png");
-                p.Image = (Image)imatge;
+                ///Bitmap imatge = new Bitmap("avio2.png");
+                ///p.Image = (Image)imatge;
 
                 p.Tag = i;
                 p.Click += new System.EventHandler(this.ShowFlightInfo);
@@ -172,6 +217,80 @@ namespace Formulari
             Dades form = new Dades();
             form.TomaLista(miLista);
             form.ShowDialog();
+        }
+
+        private void PredecirButton_Click(object sender, EventArgs e)
+        {
+            int numAviones = miLista.GetNumber();
+            if (numAviones < 2) return;
+
+            // Creamos una simulacion "fantasma" de todos los aviones para predecir conflictos futuros
+            FlightPlan[] fantasmas = new FlightPlan[numAviones];
+            for (int i = 0; i < numAviones; i++)
+            {
+                FlightPlan original = miLista.GetFlightPlan(i);
+
+                // Creamos un clon en su posición actual
+                fantasmas[i] = new FlightPlan(
+                    original.GetID(),
+                    original.GetCurrentPosition().GetX(),
+                    original.GetCurrentPosition().GetY(),
+                    original.GetFinalPosition().GetX(),
+                    original.GetFinalPosition().GetY(),
+                    original.GetVelocidad()
+                );
+            }
+
+            bool conflictoEncontrado = false;
+            int maxIteraciones = 5000;
+            int iteracion = 0;
+
+            // Iniciamos la simulacion fantasma
+            while (AlgunAvionEnRuta(fantasmas) && !conflictoEncontrado && iteracion < maxIteraciones)
+            {
+                for (int i = 0; i < numAviones; i++)
+                {
+                    if (!fantasmas[i].HasArrived())
+                    {
+                        fantasmas[i].Mover(temps_cicle);
+                    }
+                }
+
+                // Comprobamos conflictos solo entre aviones que siguen volando
+                for (int i = 0; i < numAviones; i++)
+                {
+                    if (fantasmas[i].HasArrived()) continue;
+
+                    for (int j = i + 1; j < numAviones; j++)
+                    {
+                        if (fantasmas[j].HasArrived()) continue;
+
+                        if (fantasmas[i].Conflicto(fantasmas[j], distancia_seguretat))
+                        {
+                            conflictoEncontrado = true;
+                        }
+                    }
+                }
+                iteracion++;
+            }
+
+            if (conflictoEncontrado)
+            {
+                MessageBox.Show("¡ALERTA! Se prevé un conflicto en las trayectorias", "Predicción", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                MessageBox.Show("Rutas limpias. No se predicen conflictos.", "Predicción", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private bool AlgunAvionEnRuta(FlightPlan[] listaFantasmas)
+        {
+            foreach (FlightPlan f in listaFantasmas)
+            {
+                if (!f.HasArrived()) return true; // Si al menos uno no ha llegado, seguimos
+            }
+            return false; // Todos han llegado
         }
     }
 }
