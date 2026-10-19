@@ -62,7 +62,7 @@ namespace Formulari
                     Position posA = miLista.GetFlightPlan(i).GetCurrentPosition();
                     Position posB = miLista.GetFlightPlan(j).GetCurrentPosition();
 
-                    // Distancia Euclidiana
+                    // Distancia
                     double difX = posA.GetX() - posB.GetX();
                     double difY = posA.GetY() - posB.GetY();
                     double distancia = Math.Sqrt((difX * difX) + (difY * difY));
@@ -83,7 +83,7 @@ namespace Formulari
             }
             else
             {
-                panelSimular.BackColor = SystemColors.Control;
+                panelSimular.BackColor = Color.FromArgb(255, 255, 128);
                 lblAlerta.Text = "Separación segura.";
                 lblAlerta.ForeColor = Color.Green;
             }
@@ -122,7 +122,7 @@ namespace Formulari
                 // Ubicar el PictureBox  (es resta 10 (que es el tamany) i dividit entre 2 perquè quedi centrat)
                 p.Location = new Point((int)pos.GetX()-10/2, (int)pos.GetY()-10/2);
 
-                // Ajustar el temany de la imatge a 10x10
+                // Ajustar el tamany de la imatge a 10x10
                 /// p.SizeMode = PictureBoxSizeMode.StretchImage;
 
                 p.Size = new Size(10, 10);
