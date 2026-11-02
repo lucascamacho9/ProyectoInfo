@@ -79,8 +79,8 @@ namespace Formulari
             IDBox.Text = "FP1";
             pXiBox.Text = "1";
             pYiBox.Text = "1";
-            pXfBox.Text = "100";
-            pYfBox.Text = "100";
+            pXfBox.Text = "500";
+            pYfBox.Text = "500";
             velocityBox.Text = "50";
         }
 
@@ -88,8 +88,8 @@ namespace Formulari
         {
             IDBox.Text = "FP2";
             pXiBox.Text = "1";
-            pYiBox.Text = "100";
-            pXfBox.Text = "100";
+            pYiBox.Text = "301";
+            pXfBox.Text = "500";
             pYfBox.Text = "1";
             velocityBox.Text = "50";
         }

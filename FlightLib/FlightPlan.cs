@@ -151,6 +151,7 @@ namespace FlightLib
             this.velocidad = velocidad + v;
         }
 
+        
         public void EscribeConsola()
         // escribe en consola los datos del plan de vuelo
         {
@@ -166,4 +167,5 @@ namespace FlightLib
             Console.WriteLine("******************************");
         }
     }
+   
 }

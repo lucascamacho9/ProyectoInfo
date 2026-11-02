@@ -337,6 +337,8 @@ namespace Formulari
             }
             using (Pen penLinia = new Pen(Color.Red, 2))
             using (Pen penElipse = new Pen(Color.Blue, 1))
+            using(Font fontID = new Font("Arial", 8, FontStyle.Bold))
+            using (Brush brushID = new SolidBrush(Color.Black))
             {
                 int i = 0;
                 while (i < miLista.GetNumber())
@@ -358,6 +360,8 @@ namespace Formulari
                         //Pen penElipse = new Pen(Color.Blue, 1);
                         e.Graphics.DrawEllipse(penElipse, (int)pos.GetX() - (int)r, (int)pos.GetY() - (int)r, 2 * (int)r, 2 * (int)r);
                     }
+                    Position posID = f.GetCurrentPosition();
+                    e.Graphics.DrawString(f.GetID(), fontID, brushID, (float)posID.GetX() + 8, (float)posID.GetY() - 18);
                     i++;
                 }
             }
