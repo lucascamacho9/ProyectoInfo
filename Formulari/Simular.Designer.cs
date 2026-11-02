@@ -42,7 +42,7 @@
             // panelSimular
             // 
             this.panelSimular.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.panelSimular.Location = new System.Drawing.Point(276, 12);
+            this.panelSimular.Location = new System.Drawing.Point(304, 26);
             this.panelSimular.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panelSimular.Name = "panelSimular";
             this.panelSimular.Size = new System.Drawing.Size(500, 500);

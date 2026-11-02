@@ -48,20 +48,26 @@ namespace Formulari
 
             try
             {
-                FlightPlan p = new FlightPlan(IDBox.Text, Convert.ToDouble(pXiBox.Text), Convert.ToDouble(pYiBox.Text), Convert.ToDouble(pXfBox.Text), Convert.ToDouble(pYfBox.Text), Convert.ToDouble(velocityBox.Text));
-                listaprincipal.AddFlightPlan(p);
-                MessageBox.Show("s'ha afegit correctament");
-                MAX_FLIGHT_PLANS++;
-                countFP++;
+                if ((Convert.ToDouble(pXiBox.Text) != 0 && Convert.ToDouble(pYiBox.Text) != 0 && Convert.ToDouble(pXfBox.Text) != 0 && Convert.ToDouble(pYfBox.Text) != 0 && Convert.ToDouble(velocityBox.Text) != 0)|| (Convert.ToDouble(pXiBox.Text) != 100 && Convert.ToDouble(pYiBox.Text) !=100 && Convert.ToDouble(pXfBox.Text) != 100 && Convert.ToDouble(pYfBox.Text) != 100 && Convert.ToDouble(velocityBox.Text) != 100))
+                {
+                    MessageBox.Show("Els vols han de tenir una entrada i sortida en el perímetre");
+                    return;
+                }
+                else
+                {
+                    FlightPlan p = new FlightPlan(IDBox.Text, Convert.ToDouble(pXiBox.Text), Convert.ToDouble(pYiBox.Text), Convert.ToDouble(pXfBox.Text), Convert.ToDouble(pYfBox.Text), Convert.ToDouble(velocityBox.Text));
+                    listaprincipal.AddFlightPlan(p);
+                    MessageBox.Show("s'ha afegit correctament");
+                    MAX_FLIGHT_PLANS++;
+                    countFP++;
 
-                IDBox.Clear();
-                pXiBox.Clear();
-                pYiBox.Clear();
-                pXfBox.Clear();
-                pYfBox.Clear();
-                velocityBox.Clear();
-                               
-
+                    IDBox.Clear();
+                    pXiBox.Clear();
+                    pYiBox.Clear();
+                    pXfBox.Clear();
+                    pYfBox.Clear();
+                    velocityBox.Clear();
+                }
             }
             catch (FormatException)
             {
@@ -77,20 +83,20 @@ namespace Formulari
         private void buttonFP1_Click(object sender, EventArgs e)
         {
             IDBox.Text = "FP1";
-            pXiBox.Text = "1";
-            pYiBox.Text = "1";
-            pXfBox.Text = "500";
-            pYfBox.Text = "500";
+            pXiBox.Text = "0";
+            pYiBox.Text = "0";
+            pXfBox.Text = "100";
+            pYfBox.Text = "100";
             velocityBox.Text = "50";
         }
 
         private void buttonFP2_Click(object sender, EventArgs e)
         {
             IDBox.Text = "FP2";
-            pXiBox.Text = "1";
-            pYiBox.Text = "301";
-            pXfBox.Text = "500";
-            pYfBox.Text = "1";
+            pXiBox.Text = "0";
+            pYiBox.Text = "100";
+            pXfBox.Text = "100";
+            pYfBox.Text = "0";
             velocityBox.Text = "50";
         }
     }
