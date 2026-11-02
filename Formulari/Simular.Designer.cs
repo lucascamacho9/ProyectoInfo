@@ -36,24 +36,25 @@
             this.buttonDades = new System.Windows.Forms.Button();
             this.PredecirButton = new System.Windows.Forms.Button();
             this.lblAlerta = new System.Windows.Forms.Label();
+            this.Restart = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // panelSimular
             // 
             this.panelSimular.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.panelSimular.Location = new System.Drawing.Point(245, 10);
+            this.panelSimular.Location = new System.Drawing.Point(276, 12);
             this.panelSimular.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panelSimular.Name = "panelSimular";
-            this.panelSimular.Size = new System.Drawing.Size(444, 341);
+            this.panelSimular.Size = new System.Drawing.Size(500, 500);
             this.panelSimular.TabIndex = 0;
             this.panelSimular.Paint += new System.Windows.Forms.PaintEventHandler(this.panelSimular_Paint);
             // 
             // buttonMoure
             // 
-            this.buttonMoure.Location = new System.Drawing.Point(35, 21);
+            this.buttonMoure.Location = new System.Drawing.Point(39, 26);
             this.buttonMoure.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonMoure.Name = "buttonMoure";
-            this.buttonMoure.Size = new System.Drawing.Size(169, 58);
+            this.buttonMoure.Size = new System.Drawing.Size(190, 72);
             this.buttonMoure.TabIndex = 1;
             this.buttonMoure.Text = "Moure Un Cicle";
             this.buttonMoure.UseVisualStyleBackColor = true;
@@ -61,10 +62,10 @@
             // 
             // buttonLinia
             // 
-            this.buttonLinia.Location = new System.Drawing.Point(35, 84);
+            this.buttonLinia.Location = new System.Drawing.Point(39, 105);
             this.buttonLinia.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonLinia.Name = "buttonLinia";
-            this.buttonLinia.Size = new System.Drawing.Size(169, 50);
+            this.buttonLinia.Size = new System.Drawing.Size(190, 62);
             this.buttonLinia.TabIndex = 2;
             this.buttonLinia.Text = "LÍNIA (inici-final)";
             this.buttonLinia.UseVisualStyleBackColor = true;
@@ -72,10 +73,10 @@
             // 
             // buttonElipse
             // 
-            this.buttonElipse.Location = new System.Drawing.Point(35, 139);
+            this.buttonElipse.Location = new System.Drawing.Point(39, 174);
             this.buttonElipse.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonElipse.Name = "buttonElipse";
-            this.buttonElipse.Size = new System.Drawing.Size(169, 58);
+            this.buttonElipse.Size = new System.Drawing.Size(190, 72);
             this.buttonElipse.TabIndex = 3;
             this.buttonElipse.Text = "El·lipse de Seguretat";
             this.buttonElipse.UseVisualStyleBackColor = true;
@@ -84,10 +85,10 @@
             // buttonAutomatic
             // 
             this.buttonAutomatic.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.buttonAutomatic.Location = new System.Drawing.Point(35, 205);
+            this.buttonAutomatic.Location = new System.Drawing.Point(39, 256);
             this.buttonAutomatic.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonAutomatic.Name = "buttonAutomatic";
-            this.buttonAutomatic.Size = new System.Drawing.Size(169, 45);
+            this.buttonAutomatic.Size = new System.Drawing.Size(190, 56);
             this.buttonAutomatic.TabIndex = 4;
             this.buttonAutomatic.Text = "Cicle Automàtic";
             this.buttonAutomatic.UseVisualStyleBackColor = false;
@@ -95,10 +96,10 @@
             // 
             // buttonDades
             // 
-            this.buttonDades.Location = new System.Drawing.Point(35, 303);
+            this.buttonDades.Location = new System.Drawing.Point(39, 379);
             this.buttonDades.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonDades.Name = "buttonDades";
-            this.buttonDades.Size = new System.Drawing.Size(169, 46);
+            this.buttonDades.Size = new System.Drawing.Size(190, 58);
             this.buttonDades.TabIndex = 5;
             this.buttonDades.Text = "Dades dels Vols";
             this.buttonDades.UseVisualStyleBackColor = true;
@@ -107,10 +108,10 @@
             // PredecirButton
             // 
             this.PredecirButton.BackColor = System.Drawing.Color.White;
-            this.PredecirButton.Location = new System.Drawing.Point(35, 254);
+            this.PredecirButton.Location = new System.Drawing.Point(39, 318);
             this.PredecirButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.PredecirButton.Name = "PredecirButton";
-            this.PredecirButton.Size = new System.Drawing.Size(169, 45);
+            this.PredecirButton.Size = new System.Drawing.Size(190, 56);
             this.PredecirButton.TabIndex = 6;
             this.PredecirButton.Text = "Comprobar conflictes";
             this.PredecirButton.UseVisualStyleBackColor = false;
@@ -119,16 +120,27 @@
             // lblAlerta
             // 
             this.lblAlerta.AutoSize = true;
-            this.lblAlerta.Location = new System.Drawing.Point(441, 366);
+            this.lblAlerta.Location = new System.Drawing.Point(496, 458);
             this.lblAlerta.Name = "lblAlerta";
-            this.lblAlerta.Size = new System.Drawing.Size(0, 16);
+            this.lblAlerta.Size = new System.Drawing.Size(0, 20);
             this.lblAlerta.TabIndex = 7;
+            // 
+            // Restart
+            // 
+            this.Restart.Location = new System.Drawing.Point(39, 520);
+            this.Restart.Name = "Restart";
+            this.Restart.Size = new System.Drawing.Size(190, 54);
+            this.Restart.TabIndex = 8;
+            this.Restart.Text = "RESTART";
+            this.Restart.UseVisualStyleBackColor = true;
+            this.Restart.Click += new System.EventHandler(this.Restart_Click);
             // 
             // Simular
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(728, 409);
+            this.ClientSize = new System.Drawing.Size(1207, 617);
+            this.Controls.Add(this.Restart);
             this.Controls.Add(this.lblAlerta);
             this.Controls.Add(this.buttonAutomatic);
             this.Controls.Add(this.PredecirButton);
@@ -156,5 +168,6 @@
         private System.Windows.Forms.Button buttonDades;
         private System.Windows.Forms.Button PredecirButton;
         private System.Windows.Forms.Label lblAlerta;
+        private System.Windows.Forms.Button Restart;
     }
 }

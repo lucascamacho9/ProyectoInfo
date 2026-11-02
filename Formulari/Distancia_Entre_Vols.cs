@@ -17,7 +17,6 @@ namespace Formulari
         public Distancia_Entre_Vols()
         {
             InitializeComponent();
-
         }
 
         public void setFlightPlans(FlightPlan a, FlightPlan b)

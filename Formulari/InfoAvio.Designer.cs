@@ -35,6 +35,8 @@
             this.YBox = new System.Windows.Forms.TextBox();
             this.speedBox = new System.Windows.Forms.TextBox();
             this.buttonClose = new System.Windows.Forms.Button();
+            this.canviVelocitat = new System.Windows.Forms.Button();
+            this.canviVelocitatBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label1
@@ -51,7 +53,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(174, 219);
+            this.label2.Location = new System.Drawing.Point(121, 203);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(64, 20);
             this.label2.TabIndex = 1;
@@ -60,7 +62,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(135, 153);
+            this.label3.Location = new System.Drawing.Point(82, 137);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(166, 20);
             this.label3.TabIndex = 2;
@@ -68,28 +70,28 @@
             // 
             // XBox
             // 
-            this.XBox.Location = new System.Drawing.Point(363, 153);
+            this.XBox.Location = new System.Drawing.Point(310, 137);
             this.XBox.Name = "XBox";
             this.XBox.Size = new System.Drawing.Size(83, 26);
             this.XBox.TabIndex = 3;
             // 
             // YBox
             // 
-            this.YBox.Location = new System.Drawing.Point(461, 153);
+            this.YBox.Location = new System.Drawing.Point(408, 137);
             this.YBox.Name = "YBox";
             this.YBox.Size = new System.Drawing.Size(78, 26);
             this.YBox.TabIndex = 4;
             // 
             // speedBox
             // 
-            this.speedBox.Location = new System.Drawing.Point(363, 219);
+            this.speedBox.Location = new System.Drawing.Point(310, 203);
             this.speedBox.Name = "speedBox";
             this.speedBox.Size = new System.Drawing.Size(176, 26);
             this.speedBox.TabIndex = 5;
             // 
             // buttonClose
             // 
-            this.buttonClose.Location = new System.Drawing.Point(285, 311);
+            this.buttonClose.Location = new System.Drawing.Point(635, 372);
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.Size = new System.Drawing.Size(124, 44);
             this.buttonClose.TabIndex = 6;
@@ -97,11 +99,30 @@
             this.buttonClose.UseVisualStyleBackColor = true;
             this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
             // 
+            // canviVelocitat
+            // 
+            this.canviVelocitat.Location = new System.Drawing.Point(86, 307);
+            this.canviVelocitat.Name = "canviVelocitat";
+            this.canviVelocitat.Size = new System.Drawing.Size(197, 48);
+            this.canviVelocitat.TabIndex = 7;
+            this.canviVelocitat.Text = "Canvia La Velocitat";
+            this.canviVelocitat.UseVisualStyleBackColor = true;
+            this.canviVelocitat.Click += new System.EventHandler(this.canviVelocitat_Click);
+            // 
+            // canviVelocitatBox
+            // 
+            this.canviVelocitatBox.Location = new System.Drawing.Point(305, 318);
+            this.canviVelocitatBox.Name = "canviVelocitatBox";
+            this.canviVelocitatBox.Size = new System.Drawing.Size(171, 26);
+            this.canviVelocitatBox.TabIndex = 8;
+            // 
             // InfoAvio
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.canviVelocitatBox);
+            this.Controls.Add(this.canviVelocitat);
             this.Controls.Add(this.buttonClose);
             this.Controls.Add(this.speedBox);
             this.Controls.Add(this.YBox);
@@ -126,5 +147,7 @@
         private System.Windows.Forms.TextBox YBox;
         private System.Windows.Forms.TextBox speedBox;
         private System.Windows.Forms.Button buttonClose;
+        private System.Windows.Forms.Button canviVelocitat;
+        private System.Windows.Forms.TextBox canviVelocitatBox;
     }
 }

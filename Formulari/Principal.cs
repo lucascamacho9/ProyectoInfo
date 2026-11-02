@@ -19,16 +19,13 @@ namespace Formulari
 
         public Principal()
         {
-            InitializeComponent();
+            InitializeComponent();  
         }
 
         private void fORMULARIToolStripMenuItem_Click(object sender, EventArgs e)
         {
             NouFlightPlan form = new NouFlightPlan(milista);
-            form.ShowDialog();          
-            
-            
-            
+            form.ShowDialog();                       
         }
         private void fToolStripMenuItem_Click(object sender, EventArgs e)
         {

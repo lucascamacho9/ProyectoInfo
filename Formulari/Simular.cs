@@ -14,6 +14,7 @@ namespace Formulari
     public partial class Simular : Form
     {
         FlightPlanList miLista;
+        FlightPlanList listaOriginal;
         int temps_cicle;
         double distancia_seguretat;
         
@@ -95,11 +96,27 @@ namespace Formulari
         }
         public void SetData(FlightPlanList f, int c, double d)
         {
-            miLista = f;
+            listaOriginal = f;
+            miLista = CrearCopia(listaOriginal);
             temps_cicle = c;
             distancia_seguretat = d;
 
         }
+        
+        /// Treballarem amb una còpia del Flight Plan original així podem reinicial la simulació amb les dades originals
+        
+        private FlightPlanList CrearCopia(FlightPlanList original)
+        {
+            FlightPlanList copia = new FlightPlanList();
+            for (int i = 0; i < original.GetNumber(); i++)
+            {
+                FlightPlan f = original.GetFlightPlan(i);
+                FlightPlan nuevo = new FlightPlan(f.GetID(), f.GetCurrentPosition().GetX(), f.GetCurrentPosition().GetY(), f.GetFinalPosition().GetX(), f.GetFinalPosition().GetY(), f.GetVelocidad());
+                copia.AddFlightPlan(nuevo);
+            }
+            return copia;
+        }
+
         private void Simular_Load(object sender, EventArgs e)
         {
             vuelos = new PictureBox[miLista.GetNumber()];
@@ -138,7 +155,6 @@ namespace Formulari
                 vuelos[i] = p;
 
                 i = i + 1;
-                
             }
         }
 
@@ -289,6 +305,24 @@ namespace Formulari
                 if (!f.HasArrived()) return true; // Si al menos uno no ha llegado, seguimos
             }
             return false; // Todos han llegado
+        }
+
+        private void Restart_Click(object sender, EventArgs e)
+        {
+            ///para el mode automàtic si estava iniciat
+            MoureAutomatic = false;
+            timerAutomatic.Enabled = false;
+            
+            ///recol·locar els picturebox a la posició inicial
+            for (int i=0; i<miLista.GetNumber();i++)
+            {
+                FlightPlan f = miLista.GetFlightPlan(i);
+                f.Reestart();
+                Position pos = f.GetCurrentPosition();
+                vuelos[i].Location = new Point((int)pos.GetX() - 10 / 2, (int)pos.GetY() - 10 / 2);
+            }
+            VerificarConflictosActuales();
+            panelSimular.Invalidate();
         }
     }
 }

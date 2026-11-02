@@ -14,6 +14,7 @@ namespace Formulari
     public partial class InfoAvio : Form
     {
         FlightPlan myFlight;
+        double novaVelocitat;
         public InfoAvio()
         {
             InitializeComponent();
@@ -38,6 +39,14 @@ namespace Formulari
         private void buttonClose_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void canviVelocitat_Click(object sender, EventArgs e)
+        {
+            double novaVelocitat = Convert.ToDouble(canviVelocitatBox.Text);
+            myFlight.SetVelocidad(novaVelocitat);
+            speedBox.Text = myFlight.GetVelocidad().ToString("F2");
+            canviVelocitatBox.Clear();
         }
     }
 }
