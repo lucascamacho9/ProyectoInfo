@@ -28,6 +28,7 @@ namespace Formulari
         public Simular()
         {
             InitializeComponent();
+            panelSimular.ClientSize = new Size(600, 600);
             timerAutomatic = new Timer();
             timerAutomatic.Interval = 250; // 250 ms entre movimientos
             timerAutomatic.Tick += timerAutomatic_Tick;
@@ -41,7 +42,7 @@ namespace Formulari
             {
                 FlightPlan f = miLista.GetFlightPlan(i);
                 Position pos = f.GetCurrentPosition();
-                vuelos[i].Location = new Point((int)pos.GetX()-10/2, (int)pos.GetY()-10/2);
+                ColocarAvio(vuelos[i], pos);
                 i = i + 1;
             }
 
@@ -116,10 +117,22 @@ namespace Formulari
             }
             return copia;
         }
+        double escala = 6;
+        private float ToPixels (double coord)
+        {
+            return (float)(coord*escala);
+        }
+
+        private void ColocarAvio (PictureBox p, Position pos)
+        {
+            p.Location = new Point((int)Math.Round(ToPixels(pos.GetX())) - p.Width / 2,
+                          (int)Math.Round(ToPixels(pos.GetY())) - p.Height / 2);
+        }
 
         private void Simular_Load(object sender, EventArgs e)
         {
-
+            panelSimular.Size = new Size(600, 600);
+            
             // Fase 11: abans de simular comprovem si els vols entraran en conflicte
             if (miLista.GetNumber() == 2)
             {
@@ -153,7 +166,7 @@ namespace Formulari
                 Position pos = f.GetCurrentPosition();
 
                 // Ubicar el PictureBox  (es resta 10 (que es el tamany) i dividit entre 2 perquè quedi centrat)
-                p.Location = new Point((int)pos.GetX()-10/2, (int)pos.GetY()-10/2);
+                ColocarAvio(p, pos);
 
                 // Ajustar el tamany de la imatge a 10x10
                 /// p.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -325,7 +338,6 @@ namespace Formulari
         {
             MoureAutomatic = !MoureAutomatic;
             timerAutomatic.Enabled = MoureAutomatic;
-
         }
 
 
@@ -340,28 +352,29 @@ namespace Formulari
             using(Font fontID = new Font("Arial", 8, FontStyle.Bold))
             using (Brush brushID = new SolidBrush(Color.Black))
             {
+                float r = ToPixels(distancia_seguretat);
                 int i = 0;
                 while (i < miLista.GetNumber())
                 {
                     FlightPlan f = miLista.GetFlightPlan(i);
+                    Position pos = f.GetCurrentPosition();
+                    float px = ToPixels(pos.GetX());
+                    float py = ToPixels(pos.GetY());
 
                     if (mostrarLinies)
                     {
-                        Position pos = f.GetCurrentPosition();
                         Position fin = f.GetFinalPosition();
                         // Dibuixar la línia de trajectòria
                         // Pen penLinia = new Pen(Color.Red, 2);
-                        e.Graphics.DrawLine(penLinia, (int)pos.GetX(), (int)pos.GetY(), (int)fin.GetX(), (int)fin.GetY());
+                        e.Graphics.DrawLine(penLinia, px, py, ToPixels(fin.GetX()), ToPixels(fin.GetY()));
                     }
                     if (mostrarElipses)
                     {
-                        Position pos = f.GetCurrentPosition();
-                        float r = (float)distancia_seguretat;
                         //Pen penElipse = new Pen(Color.Blue, 1);
-                        e.Graphics.DrawEllipse(penElipse, (int)pos.GetX() - (int)r, (int)pos.GetY() - (int)r, 2 * (int)r, 2 * (int)r);
+                        e.Graphics.DrawEllipse(penElipse, px-r, py-r, 2 * r, 2 * r);
                     }
                     Position posID = f.GetCurrentPosition();
-                    e.Graphics.DrawString(f.GetID(), fontID, brushID, (float)posID.GetX() + 8, (float)posID.GetY() - 18);
+                    e.Graphics.DrawString(f.GetID(), fontID, brushID, px + 8, py - 18);
                     i++;
                 }
             }
@@ -460,7 +473,7 @@ namespace Formulari
                 FlightPlan f = miLista.GetFlightPlan(i);
                 f.Reestart();
                 Position pos = f.GetCurrentPosition();
-                vuelos[i].Location = new Point((int)pos.GetX() - 10 / 2, (int)pos.GetY() - 10 / 2);
+                ColocarAvio(vuelos[i], pos);
             }
             VerificarConflictosActuales();
             panelSimular.Invalidate();
