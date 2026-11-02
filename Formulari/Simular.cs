@@ -17,7 +17,7 @@ namespace Formulari
         FlightPlanList listaOriginal;
         int temps_cicle;
         double distancia_seguretat;
-        
+
         // Picture boxes per representar els avions
         PictureBox[] vuelos;
         bool mostrarLinies = false;
@@ -67,7 +67,7 @@ namespace Formulari
                     double difY = posA.GetY() - posB.GetY();
                     double distancia = Math.Sqrt((difX * difX) + (difY * difY));
 
-                    if (distancia < distancia_seguretat)
+                    if (distancia < 2*distancia_seguretat)
                     {
                         alerta = true;
                     }
@@ -103,9 +103,8 @@ namespace Formulari
             distancia_seguretat = d;
 
         }
-        
+
         /// Treballarem amb una còpia del Flight Plan original així podem reinicial la simulació amb les dades originals
-        
         private FlightPlanList CrearCopia(FlightPlanList original)
         {
             FlightPlanList copia = new FlightPlanList();
@@ -118,12 +117,12 @@ namespace Formulari
             return copia;
         }
         double escala = 6;
-        private float ToPixels (double coord)
+        private float ToPixels(double coord)
         {
-            return (float)(coord*escala);
+            return (float)(coord * escala);
         }
 
-        private void ColocarAvio (PictureBox p, Position pos)
+        private void ColocarAvio(PictureBox p, Position pos)
         {
             p.Location = new Point((int)Math.Round(ToPixels(pos.GetX())) - p.Width / 2,
                           (int)Math.Round(ToPixels(pos.GetY())) - p.Height / 2);
@@ -132,7 +131,7 @@ namespace Formulari
         private void Simular_Load(object sender, EventArgs e)
         {
             panelSimular.Size = new Size(600, 600);
-            
+
             // Fase 11: abans de simular comprovem si els vols entraran en conflicte
             if (miLista.GetNumber() == 2)
             {
@@ -143,7 +142,19 @@ namespace Formulari
                     DialogResult resposta = MessageBox.Show("Els vols entraran en conflicte (les el·lipses de seguretat es tocaran). Vols resoldre el conflicte?", "Conflicte", MessageBoxButtons.YesNo);
                     if (resposta == DialogResult.Yes)
                     {
+                        double velocidadinicial1 = vol1.GetVelocidad();
+                        double velocidadinicial2 = vol2.GetVelocidad();
                         vol1.ResoldreConflicte(vol2, distancia_seguretat);
+                        double velocidadfinal1 = vol1.GetVelocidad();
+                        double velocidadfinal2 = vol2.GetVelocidad();
+                        if (velocidadinicial1 != velocidadfinal1)
+                        {
+                            MessageBox.Show("S'ha canviat la velocitat del vol " + vol1.GetID() + " de " + velocidadinicial1 + " a " + velocidadfinal1);
+                        }
+                        if (velocidadinicial2 != velocidadfinal2)
+                        {
+                            MessageBox.Show("S'ha canviat la velocitat del vol " + vol2.GetID() + " de " + velocidadinicial2 + " a " + velocidadfinal2);
+                        }
                     }
                 }
             }
@@ -187,8 +198,8 @@ namespace Formulari
                 i = i + 1;
             }
         }
-        
-        
+
+
         //final segona part fase 11
         private void ShowFlightInfo(object sender, EventArgs e)
         {
@@ -203,7 +214,7 @@ namespace Formulari
         {
             MoureAvions();
         }
-        
+
         private void buttonLinia_Click(object sender, EventArgs e)
         {
             mostrarLinies = !mostrarLinies;
@@ -231,7 +242,7 @@ namespace Formulari
             }
             using (Pen penLinia = new Pen(Color.Red, 2))
             using (Pen penElipse = new Pen(Color.Blue, 1))
-            using(Font fontID = new Font("Arial", 8, FontStyle.Bold))
+            using (Font fontID = new Font("Arial", 8, FontStyle.Bold))
             using (Brush brushID = new SolidBrush(Color.Black))
             {
                 float r = ToPixels(distancia_seguretat);
@@ -253,7 +264,7 @@ namespace Formulari
                     if (mostrarElipses)
                     {
                         //Pen penElipse = new Pen(Color.Blue, 1);
-                        e.Graphics.DrawEllipse(penElipse, px-r, py-r, 2 * r, 2 * r);
+                        e.Graphics.DrawEllipse(penElipse, px - r, py - r, 2 * r, 2 * r);
                     }
                     Position posID = f.GetCurrentPosition();
                     e.Graphics.DrawString(f.GetID(), fontID, brushID, px + 8, py - 18);
@@ -275,13 +286,13 @@ namespace Formulari
             if (numAviones < 2) return;
 
             // Creamos una simulacion "fantasma" de todos los aviones para predecir conflictos futuros
-            FlightPlan[] fantasmas = new FlightPlan[numAviones];
+            FlightPlan[] copia = new FlightPlan[numAviones];
             for (int i = 0; i < numAviones; i++)
             {
                 FlightPlan original = miLista.GetFlightPlan(i);
 
                 // Creamos un clon en su posición actual
-                fantasmas[i] = new FlightPlan(
+                copia[i] = new FlightPlan(
                     original.GetID(),
                     original.GetCurrentPosition().GetX(),
                     original.GetCurrentPosition().GetY(),
@@ -296,26 +307,26 @@ namespace Formulari
             int iteracion = 0;
 
             // Iniciamos la simulacion fantasma
-            while (AlgunAvionEnRuta(fantasmas) && !conflictoEncontrado && iteracion < maxIteraciones)
+            while (AlgunAvionEnRuta(copia) && !conflictoEncontrado && iteracion < maxIteraciones)
             {
                 for (int i = 0; i < numAviones; i++)
                 {
-                    if (!fantasmas[i].HasArrived())
+                    if (!copia[i].HasArrived())
                     {
-                        fantasmas[i].Mover(temps_cicle);
+                        copia[i].Mover(temps_cicle);
                     }
                 }
 
                 // Comprobamos conflictos solo entre aviones que siguen volando
                 for (int i = 0; i < numAviones; i++)
                 {
-                    if (fantasmas[i].HasArrived()) continue;
+                    if (copia[i].HasArrived()) continue;
 
                     for (int j = i + 1; j < numAviones; j++)
                     {
-                        if (fantasmas[j].HasArrived()) continue;
+                        if (copia[j].HasArrived()) continue;
 
-                        if (fantasmas[i].Conflicto(fantasmas[j], distancia_seguretat))
+                        if (copia[i].Conflicto(copia[j], distancia_seguretat))
                         {
                             conflictoEncontrado = true;
                         }
@@ -348,9 +359,9 @@ namespace Formulari
             ///para el mode automàtic si estava iniciat
             MoureAutomatic = false;
             timerAutomatic.Enabled = false;
-            
+
             ///recol·locar els picturebox a la posició inicial
-            for (int i=0; i<miLista.GetNumber();i++)
+            for (int i = 0; i < miLista.GetNumber(); i++)
             {
                 FlightPlan f = miLista.GetFlightPlan(i);
                 f.Reestart();
@@ -360,5 +371,11 @@ namespace Formulari
             VerificarConflictosActuales();
             panelSimular.Invalidate();
         }
+        private void ComporvarConflicteIncial()
+        {
+
+        }
     }
 }
+  
+
