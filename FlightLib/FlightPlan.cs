@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -151,7 +152,95 @@ namespace FlightLib
             this.velocidad = velocidad + v;
         }
 
-        
+        public bool PreverConflictos(FlightPlan b, double distanciaSeguridad)
+        {
+            bool conflicto = false;
+            double D1 = this.initialPosition.Distancia(this.finalPosition);
+            double vx1 = (this.finalPosition.GetX() - this.initialPosition.GetX()) / D1 * this.velocidad;
+            double vy1 = (this.finalPosition.GetY() - this.initialPosition.GetY()) / D1 * this.velocidad;
+            double D2 = b.initialPosition.Distancia(b.finalPosition);
+            double vx2 = (b.finalPosition.GetX() - b.initialPosition.GetX()) / D2 * b.velocidad;
+            double vy2 = (b.finalPosition.GetY() - b.initialPosition.GetY()) / D2 * b.velocidad;
+            double dX = this.initialPosition.GetX() - b.initialPosition.GetX();
+            double dY = this.initialPosition.GetY() - b.initialPosition.GetY();
+            double dVx = vx1 - vx2;
+            double dVy = vy1 - vy2;
+            double tmin = -(dX * dVx + dY * dVy) / (dVx * dVx + dVy * dVy);
+            double xmin = dX + dVx * tmin;
+            double ymin = dY + dVy * tmin;
+            double Dmin = Math.Sqrt(xmin * xmin + ymin * ymin);
+            if (Dmin < 2*distanciaSeguridad)
+                conflicto = true;
+            return conflicto;
+        }
+
+        // Fase 11: busca una velocitat nova per a un dels vols perquè no hi hagi conflicte
+        public void ResoldreConflicte(FlightPlan b, double distanciaSeguridad)
+        {
+            double velocitat1 = this.velocidad;
+            double velocitat2 = b.GetVelocidad();
+            double novaVelocitat = 0;
+            bool trobada = false;
+            int volCanviat = 0;
+
+            // Primer provem canviant la velocitat del vol 2, de 5% en 5% (primer més lent i després més ràpid)
+            int i = 1;
+            while (i <= 40 && !trobada)
+            {
+                if (i < 20)
+                {
+                    novaVelocitat = velocitat2 - velocitat2 * 0.05 * i;
+                    b.SetVelocidad(novaVelocitat);
+                    if (!PreverConflictos(b, distanciaSeguridad))
+                    {
+                        trobada = true;
+                        volCanviat = 2;
+                    }
+                }
+                if (!trobada)
+                {
+                    novaVelocitat = velocitat2 + velocitat2 * 0.05 * i;
+                    b.SetVelocidad(novaVelocitat);
+                    if (!PreverConflictos(b, distanciaSeguridad))
+                    {
+                        trobada = true;
+                        volCanviat = 2;
+                        
+                    }
+                }
+                i = i + 1;
+            }
+
+            // Si no s'ha trobat, provem el mateix canviant la velocitat del vol 1
+            i = 1;
+            while (i <= 40 && !trobada)
+            {
+                if (i < 20)
+                {
+                    novaVelocitat = velocitat1 - velocitat1 * 0.05 * i;
+                    this.SetVelocidad(novaVelocitat);
+                    if (!PreverConflictos(b, distanciaSeguridad))
+                    {
+                        trobada = true;
+                        volCanviat = 1;
+                        
+                    }
+                }
+                if (!trobada)
+                {
+                    novaVelocitat = velocitat1 + velocitat1 * 0.05 * i;
+                    this.SetVelocidad(novaVelocitat);
+                    if (!PreverConflictos(b, distanciaSeguridad))
+                    {
+                        trobada = true;
+                        volCanviat = 1;
+                        
+                    }
+                }
+                i = i + 1;
+            }
+        }
+
         public void EscribeConsola()
         // escribe en consola los datos del plan de vuelo
         {

@@ -125,12 +125,12 @@ namespace Formulari
             {
                 FlightPlan vol1 = miLista.GetFlightPlan(0);
                 FlightPlan vol2 = miLista.GetFlightPlan(1);
-                if (PreveureConflicte(vol1.GetVelocidad(), vol2.GetVelocidad()))
+                if (vol1.PreverConflictos(vol2, distancia_seguretat))
                 {
                     DialogResult resposta = MessageBox.Show("Els vols entraran en conflicte (les el·lipses de seguretat es tocaran). Vols resoldre el conflicte?", "Conflicte", MessageBoxButtons.YesNo);
                     if (resposta == DialogResult.Yes)
                     {
-                        ResoldreConflicte();
+                        vol1.ResoldreConflicte(vol2, distancia_seguretat);
                     }
                 }
             }
@@ -174,126 +174,8 @@ namespace Formulari
                 i = i + 1;
             }
         }
-        // Fase 11: simula amb còpies dels vols (els de veritat no es mouen)
-        // i retorna true si les el·lipses de seguretat es tocaran en algun moment
-        private bool PreveureConflicte(double velocitat1, double velocitat2)
-        {
-            FlightPlan a = miLista.GetFlightPlan(0);
-            FlightPlan b = miLista.GetFlightPlan(1);
-
-            // Fem còpies dels vols amb les velocitats que volem provar
-            FlightPlan copiaA = new FlightPlan(a.GetID(), a.GetCurrentPosition().GetX(), a.GetCurrentPosition().GetY(), a.GetFinalPosition().GetX(), a.GetFinalPosition().GetY(), velocitat1);
-            FlightPlan copiaB = new FlightPlan(b.GetID(), b.GetCurrentPosition().GetX(), b.GetCurrentPosition().GetY(), b.GetFinalPosition().GetX(), b.GetFinalPosition().GetY(), velocitat2);
-
-            // Cada avió té una el·lipse de radi distancia_seguretat,
-            // per tant perquè no es toquin els avions han d'estar a 2 * distancia_seguretat com a mínim
-            double distanciaMinima = 2 * distancia_seguretat;
-
-            // Dividim cada cicle en 100 passos petits per no saltar-nos
-            // el moment en què els avions estan més a prop (entre dos cicles)
-            double tempsPas = temps_cicle / 100.0;
-
-            bool conflicte = false;
-            int passos = 0;
-            // Movem fins que hi hagi conflicte o els dos hagin arribat (màxim 1000000 passos per si la velocitat és 0)
-            while (!conflicte && (!copiaA.HasArrived() || !copiaB.HasArrived()) && passos < 1000000)
-            {
-                if (copiaA.Conflicto(copiaB, distanciaMinima))
-                {
-                    conflicte = true;
-                }
-                copiaA.Mover(tempsPas);
-                copiaB.Mover(tempsPas);
-                passos = passos + 1;
-            }
-
-            // Comprovem també la posició final (quan els dos ja han arribat)
-            if (copiaA.Conflicto(copiaB, distanciaMinima))
-            {
-                conflicte = true;
-            }
-            return conflicte;
-        }
-
-        // Fase 11: busca una velocitat nova per a un dels vols perquè no hi hagi conflicte
-        private void ResoldreConflicte()
-        {
-            FlightPlan vol1 = miLista.GetFlightPlan(0);
-            FlightPlan vol2 = miLista.GetFlightPlan(1);
-            double velocitat1 = vol1.GetVelocidad();
-            double velocitat2 = vol2.GetVelocidad();
-            double novaVelocitat = 0;
-            bool trobada = false;
-            int volCanviat = 0;
-
-            // Primer provem canviant la velocitat del vol 2, de 5% en 5% (primer més lent i després més ràpid)
-            int i = 1;
-            while (i <= 40 && !trobada)
-            {
-                if (i < 20)
-                {
-                    novaVelocitat = velocitat2 - velocitat2 * 0.05 * i;
-                    if (!PreveureConflicte(velocitat1, novaVelocitat))
-                    {
-                        trobada = true;
-                        volCanviat = 2;
-                    }
-                }
-                if (!trobada)
-                {
-                    novaVelocitat = velocitat2 + velocitat2 * 0.05 * i;
-                    if (!PreveureConflicte(velocitat1, novaVelocitat))
-                    {
-                        trobada = true;
-                        volCanviat = 2;
-                    }
-                }
-                i = i + 1;
-            }
-
-            // Si no s'ha trobat, provem el mateix canviant la velocitat del vol 1
-            i = 1;
-            while (i <= 40 && !trobada)
-            {
-                if (i < 20)
-                {
-                    novaVelocitat = velocitat1 - velocitat1 * 0.05 * i;
-                    if (!PreveureConflicte(novaVelocitat, velocitat2))
-                    {
-                        trobada = true;
-                        volCanviat = 1;
-                    }
-                }
-                if (!trobada)
-                {
-                    novaVelocitat = velocitat1 + velocitat1 * 0.05 * i;
-                    if (!PreveureConflicte(novaVelocitat, velocitat2))
-                    {
-                        trobada = true;
-                        volCanviat = 1;
-                    }
-                }
-                i = i + 1;
-            }
-
-            if (trobada)
-            {
-                if (volCanviat == 1)
-                {
-                    vol1.SetVelocidad(novaVelocitat);
-                    MessageBox.Show("Conflicte resolt. Nova velocitat del vol " + vol1.GetID() + ": " + novaVelocitat.ToString("F2"));
-                }
-                else
-                {
-                    vol2.SetVelocidad(novaVelocitat);
-                    MessageBox.Show("Conflicte resolt. Nova velocitat del vol " + vol2.GetID() + ": " + novaVelocitat.ToString("F2"));
-                }
-            }
-            else
-            {
-                MessageBox.Show("No s'ha pogut resoldre el conflicte canviant la velocitat d'un dels vols");
-            }
-        }
+        
+        
         //final segona part fase 11
         private void ShowFlightInfo(object sender, EventArgs e)
         {
