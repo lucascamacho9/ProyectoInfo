@@ -46,6 +46,8 @@
             this.buttonFP2 = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
+            this.textBoxCompany = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // afegirButton
@@ -109,7 +111,7 @@
             // 
             // IDBox
             // 
-            this.IDBox.Location = new System.Drawing.Point(111, 169);
+            this.IDBox.Location = new System.Drawing.Point(111, 109);
             this.IDBox.Name = "IDBox";
             this.IDBox.Size = new System.Drawing.Size(98, 26);
             this.IDBox.TabIndex = 10;
@@ -117,7 +119,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(146, 132);
+            this.label1.Location = new System.Drawing.Point(146, 72);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(26, 20);
             this.label1.TabIndex = 9;
@@ -204,11 +206,29 @@
             this.label8.TabIndex = 26;
             this.label8.Text = "PER DEFECTE";
             // 
+            // textBoxCompany
+            // 
+            this.textBoxCompany.Location = new System.Drawing.Point(111, 191);
+            this.textBoxCompany.Name = "textBoxCompany";
+            this.textBoxCompany.Size = new System.Drawing.Size(98, 26);
+            this.textBoxCompany.TabIndex = 28;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(107, 157);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(88, 20);
+            this.label9.TabIndex = 27;
+            this.label9.Text = "COMPANY";
+            // 
             // NouFlightPlan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.textBoxCompany);
+            this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.buttonFP2);
@@ -254,5 +274,7 @@
         private System.Windows.Forms.Button buttonFP2;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox textBoxCompany;
+        private System.Windows.Forms.Label label9;
     }
 }

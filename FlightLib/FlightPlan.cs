@@ -11,15 +11,17 @@ namespace FlightLib
     {
         // Atributos
         string id; // identificador
+        string company;
         Position initialPosition;
         Position currentPosition; // posicion actual
         Position finalPosition; // posicion final
         double velocidad;
 
         // Constructures
-        public FlightPlan(string id, double cpx, double cpy, double fpx, double fpy, double velocidad)
+        public FlightPlan(string id, string company,double cpx, double cpy, double fpx, double fpy, double velocidad)
         {
             this.id = id;
+            this.company = company;
             this.initialPosition = new Position(cpx, cpy);
             this.currentPosition = new Position(cpx, cpy);
             this.finalPosition = new Position(fpx, fpy);
@@ -55,6 +57,16 @@ namespace FlightLib
         public void SetId(string id)
         {
             this.id = id;
+        }
+
+        public string GetCompany()
+        {
+            return this.company;
+        }   
+
+        public void SetCompany(string company)
+        {
+            this.company = company;
         }
 
         public void SetInitialPosition(Position initialPosition)
@@ -156,16 +168,27 @@ namespace FlightLib
         {
             bool conflicto = false;
             double D1 = this.initialPosition.Distancia(this.finalPosition);
+            double D2 = b.initialPosition.Distancia(b.finalPosition);
+            if (D1 == 0 || D2 == 0)
+                return false;
             double vx1 = (this.finalPosition.GetX() - this.initialPosition.GetX()) / D1 * this.velocidad;
             double vy1 = (this.finalPosition.GetY() - this.initialPosition.GetY()) / D1 * this.velocidad;
-            double D2 = b.initialPosition.Distancia(b.finalPosition);
             double vx2 = (b.finalPosition.GetX() - b.initialPosition.GetX()) / D2 * b.velocidad;
             double vy2 = (b.finalPosition.GetY() - b.initialPosition.GetY()) / D2 * b.velocidad;
             double dX = this.initialPosition.GetX() - b.initialPosition.GetX();
             double dY = this.initialPosition.GetY() - b.initialPosition.GetY();
             double dVx = vx1 - vx2;
             double dVy = vy1 - vy2;
-            double tmin = -(dX * dVx + dY * dVy) / (dVx * dVx + dVy * dVy);
+            double tFinal = Math.Min(D1/this.velocidad, D2 / b.velocidad);
+            double v2 = dVx * dVx + dVy * dVy;
+            double tmin = 0;
+            if (v2 > 0)
+            {
+                tmin = -(dX * dVx + dY * dVy) / v2;
+            }
+            if (tmin > tFinal)
+                tmin = tFinal;
+
             double xmin = dX + dVx * tmin;
             double ymin = dY + dVy * tmin;
             double Dmin = Math.Sqrt(xmin * xmin + ymin * ymin);
@@ -210,7 +233,10 @@ namespace FlightLib
                 }
                 i = i + 1;
             }
-
+            if (!trobada)
+            {
+                b.SetVelocidad(velocitat2); //restaurar la velocitat del vol 2 abans de provar vol 1
+            }
             // Si no s'ha trobat, provem el mateix canviant la velocitat del vol 1
             i = 1;
             while (i <= 40 && !trobada)
@@ -239,6 +265,17 @@ namespace FlightLib
                 }
                 i = i + 1;
             }
+            if (!trobada)
+            {
+                this.SetVelocidad(velocitat1);
+                b.SetVelocidad(velocitat2);
+            }
+        }
+
+        public FlightPlan Copia ()
+        {
+            FlightPlan copia = new FlightPlan(this.id, this.company, this.initialPosition.GetX(), this.initialPosition.GetY(), this.finalPosition.GetX(), this.finalPosition.GetY(), this.velocidad);
+            return copia;
         }
 
         public void EscribeConsola()

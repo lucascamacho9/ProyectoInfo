@@ -25,12 +25,6 @@ namespace Formulari
         private void afegirButton_Click(object sender, EventArgs e)
         {
 
-            if (countFP==2)
-            {
-                MessageBox.Show("No pots afegir mes de dos flight plans");
-                return;
-            }
-
             if (IDBox.Text== null || pXiBox.Text == null || pYiBox.Text == null || string.IsNullOrWhiteSpace(pXfBox.Text) || string.IsNullOrWhiteSpace(pYfBox.Text) || string.IsNullOrWhiteSpace(velocityBox.Text))
             {
                 MessageBox.Show("Has d'omplir tots els camps abans d'afegir.");
@@ -55,13 +49,14 @@ namespace Formulari
                 }
                 else
                 {
-                    FlightPlan p = new FlightPlan(IDBox.Text, Convert.ToDouble(pXiBox.Text), Convert.ToDouble(pYiBox.Text), Convert.ToDouble(pXfBox.Text), Convert.ToDouble(pYfBox.Text), Convert.ToDouble(velocityBox.Text));
+                    FlightPlan p = new FlightPlan(IDBox.Text, textBoxCompany.Text, Convert.ToDouble(pXiBox.Text), Convert.ToDouble(pYiBox.Text), Convert.ToDouble(pXfBox.Text), Convert.ToDouble(pYfBox.Text), Convert.ToDouble(velocityBox.Text));
                     listaprincipal.AddFlightPlan(p);
                     MessageBox.Show("s'ha afegit correctament");
                     MAX_FLIGHT_PLANS++;
                     countFP++;
 
                     IDBox.Clear();
+                    textBoxCompany.Clear();
                     pXiBox.Clear();
                     pYiBox.Clear();
                     pXfBox.Clear();
@@ -83,6 +78,7 @@ namespace Formulari
         private void buttonFP1_Click(object sender, EventArgs e)
         {
             IDBox.Text = "FP1";
+            textBoxCompany.Text = "Vueling";
             pXiBox.Text = "0";
             pYiBox.Text = "0";
             pXfBox.Text = "100";
@@ -93,6 +89,7 @@ namespace Formulari
         private void buttonFP2_Click(object sender, EventArgs e)
         {
             IDBox.Text = "FP2";
+            textBoxCompany.Text = "Iberia";
             pXiBox.Text = "0";
             pYiBox.Text = "100";
             pXfBox.Text = "100";

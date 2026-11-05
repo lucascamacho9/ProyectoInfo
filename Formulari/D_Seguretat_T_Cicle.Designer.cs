@@ -37,7 +37,7 @@
             // 
             // afegir_seg_tem_button
             // 
-            this.afegir_seg_tem_button.Location = new System.Drawing.Point(323, 240);
+            this.afegir_seg_tem_button.Location = new System.Drawing.Point(453, 311);
             this.afegir_seg_tem_button.Name = "afegir_seg_tem_button";
             this.afegir_seg_tem_button.Size = new System.Drawing.Size(153, 69);
             this.afegir_seg_tem_button.TabIndex = 0;
@@ -48,7 +48,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(128, 88);
+            this.label1.Location = new System.Drawing.Point(258, 159);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(225, 20);
             this.label1.TabIndex = 1;
@@ -56,14 +56,14 @@
             // 
             // seguretatBox
             // 
-            this.seguretatBox.Location = new System.Drawing.Point(132, 129);
+            this.seguretatBox.Location = new System.Drawing.Point(262, 200);
             this.seguretatBox.Name = "seguretatBox";
             this.seguretatBox.Size = new System.Drawing.Size(219, 26);
             this.seguretatBox.TabIndex = 2;
             // 
             // cicleBox
             // 
-            this.cicleBox.Location = new System.Drawing.Point(457, 129);
+            this.cicleBox.Location = new System.Drawing.Point(587, 200);
             this.cicleBox.Name = "cicleBox";
             this.cicleBox.Size = new System.Drawing.Size(219, 26);
             this.cicleBox.TabIndex = 4;
@@ -71,7 +71,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(498, 88);
+            this.label2.Location = new System.Drawing.Point(628, 159);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(141, 20);
             this.label2.TabIndex = 3;
@@ -81,7 +81,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1067, 608);
             this.Controls.Add(this.cicleBox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.seguretatBox);

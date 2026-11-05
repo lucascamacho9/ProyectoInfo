@@ -111,7 +111,7 @@ namespace Formulari
             for (int i = 0; i < original.GetNumber(); i++)
             {
                 FlightPlan f = original.GetFlightPlan(i);
-                FlightPlan nuevo = new FlightPlan(f.GetID(), f.GetCurrentPosition().GetX(), f.GetCurrentPosition().GetY(), f.GetFinalPosition().GetX(), f.GetFinalPosition().GetY(), f.GetVelocidad());
+                FlightPlan nuevo = new FlightPlan(f.GetID(), f.GetCompany(), f.GetCurrentPosition().GetX(), f.GetCurrentPosition().GetY(), f.GetFinalPosition().GetX(), f.GetFinalPosition().GetY(), f.GetVelocidad());
                 copia.AddFlightPlan(nuevo);
             }
             return copia;
@@ -128,36 +128,64 @@ namespace Formulari
                           (int)Math.Round(ToPixels(pos.GetY())) - p.Height / 2);
         }
 
+        private void ComprovarConflicteInicial()
+        {
+            int n = miLista.GetNumber();
+            string llistaconflictes = "";
+            int numConflictes = 0;
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = i + 1; j < n; j++)
+                {
+                    FlightPlan a = miLista.GetFlightPlan(i);
+                    FlightPlan b = miLista.GetFlightPlan(j);
+                    if (a.PreverConflictos(b, distancia_seguretat))
+                    {
+                        numConflictes++;
+                    }
+                }
+            }
+            
+    
+            {
+                DialogResult resposta = MessageBox.Show ("es preveuen " + numConflictes + " conflictes" + "\n"+
+                    "Vols resoldre'ls canviant la seva velocitat?", "Conflictes", MessageBoxButtons.YesNo);
+                if (resposta == DialogResult.Yes)
+                {
+                    for (int i = 0; i < n; i++)
+                    {
+                        for (int j = i + 1; j < n; j++)
+                        {
+                            FlightPlan a = miLista.GetFlightPlan(i);
+                            FlightPlan b = miLista.GetFlightPlan(j);
+                            if (a.PreverConflictos(b, distancia_seguretat))
+                            {
+                                double velocidadinicial1 = a.GetVelocidad();
+                                double velocidadinicial2 = b.GetVelocidad();
+                                a.ResoldreConflicte(b, distancia_seguretat);
+                                double velocidadfinal1 = a.GetVelocidad();
+                                double velocidadfinal2 = b.GetVelocidad();
+                                if (velocidadinicial1 != velocidadfinal1)
+                                {
+                                    MessageBox.Show("S'ha canviat la velocitat del vol " + a.GetID() + " de " + velocidadinicial1 + " a " + velocidadfinal1);
+                                }
+                                if (velocidadinicial2 != velocidadfinal2)
+                                {
+                                    MessageBox.Show("S'ha canviat la velocitat del vol " + b.GetID() + " de " + velocidadinicial2 + " a " + velocidadfinal2);
+                                }
+                            }
+                        }
+                    }
+                }   
+            }
+        }
+
         private void Simular_Load(object sender, EventArgs e)
         {
             panelSimular.Size = new Size(600, 600);
 
-            // Fase 11: abans de simular comprovem si els vols entraran en conflicte
-            if (miLista.GetNumber() == 2)
-            {
-                FlightPlan vol1 = miLista.GetFlightPlan(0);
-                FlightPlan vol2 = miLista.GetFlightPlan(1);
-                if (vol1.PreverConflictos(vol2, distancia_seguretat))
-                {
-                    DialogResult resposta = MessageBox.Show("Els vols entraran en conflicte (les el·lipses de seguretat es tocaran). Vols resoldre el conflicte?", "Conflicte", MessageBoxButtons.YesNo);
-                    if (resposta == DialogResult.Yes)
-                    {
-                        double velocidadinicial1 = vol1.GetVelocidad();
-                        double velocidadinicial2 = vol2.GetVelocidad();
-                        vol1.ResoldreConflicte(vol2, distancia_seguretat);
-                        double velocidadfinal1 = vol1.GetVelocidad();
-                        double velocidadfinal2 = vol2.GetVelocidad();
-                        if (velocidadinicial1 != velocidadfinal1)
-                        {
-                            MessageBox.Show("S'ha canviat la velocitat del vol " + vol1.GetID() + " de " + velocidadinicial1 + " a " + velocidadfinal1);
-                        }
-                        if (velocidadinicial2 != velocidadfinal2)
-                        {
-                            MessageBox.Show("S'ha canviat la velocitat del vol " + vol2.GetID() + " de " + velocidadinicial2 + " a " + velocidadfinal2);
-                        }
-                    }
-                }
-            }
+            ComprovarConflicteInicial();
+
             //final primera part fase 11
 
             vuelos = new PictureBox[miLista.GetNumber()];
@@ -294,6 +322,7 @@ namespace Formulari
                 // Creamos un clon en su posición actual
                 copia[i] = new FlightPlan(
                     original.GetID(),
+                    original.GetCompany(),
                     original.GetCurrentPosition().GetX(),
                     original.GetCurrentPosition().GetY(),
                     original.GetFinalPosition().GetX(),
@@ -345,9 +374,9 @@ namespace Formulari
             }
         }
 
-        private bool AlgunAvionEnRuta(FlightPlan[] listaFantasmas)
+        private bool AlgunAvionEnRuta(FlightPlan[] copia)
         {
-            foreach (FlightPlan f in listaFantasmas)
+            foreach (FlightPlan f in copia)
             {
                 if (!f.HasArrived()) return true; // Si al menos uno no ha llegado, seguimos
             }
@@ -371,10 +400,7 @@ namespace Formulari
             VerificarConflictosActuales();
             panelSimular.Invalidate();
         }
-        private void ComporvarConflicteIncial()
-        {
-
-        }
+        
     }
 }
   

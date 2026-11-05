@@ -33,6 +33,7 @@
             this.fORMULARIToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.simularToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.introduirLLISTAToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -44,7 +45,7 @@
             this.oPCIONSToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(800, 33);
+            this.menuStrip1.Size = new System.Drawing.Size(1062, 33);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -53,7 +54,8 @@
             this.oPCIONSToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fORMULARIToolStripMenuItem,
             this.fToolStripMenuItem,
-            this.simularToolStripMenuItem});
+            this.simularToolStripMenuItem,
+            this.introduirLLISTAToolStripMenuItem});
             this.oPCIONSToolStripMenuItem.Name = "oPCIONSToolStripMenuItem";
             this.oPCIONSToolStripMenuItem.Size = new System.Drawing.Size(105, 29);
             this.oPCIONSToolStripMenuItem.Text = "OPCIONS";
@@ -79,11 +81,18 @@
             this.simularToolStripMenuItem.Text = "Simular";
             this.simularToolStripMenuItem.Click += new System.EventHandler(this.simularToolStripMenuItem_Click);
             // 
+            // introduirLLISTAToolStripMenuItem
+            // 
+            this.introduirLLISTAToolStripMenuItem.Name = "introduirLLISTAToolStripMenuItem";
+            this.introduirLLISTAToolStripMenuItem.Size = new System.Drawing.Size(279, 34);
+            this.introduirLLISTAToolStripMenuItem.Text = "Introduir LLISTA";
+            this.introduirLLISTAToolStripMenuItem.Click += new System.EventHandler(this.introduirLLISTAToolStripMenuItem_Click);
+            // 
             // Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1062, 597);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Principal";
@@ -102,6 +111,7 @@
         private System.Windows.Forms.ToolStripMenuItem fORMULARIToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem simularToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem introduirLLISTAToolStripMenuItem;
     }
 }
 

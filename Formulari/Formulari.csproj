@@ -72,6 +72,12 @@
     <Compile Include="InfoAvio.Designer.cs">
       <DependentUpon>InfoAvio.cs</DependentUpon>
     </Compile>
+    <Compile Include="IntroduirLlista.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IntroduirLlista.Designer.cs">
+      <DependentUpon>IntroduirLlista.cs</DependentUpon>
+    </Compile>
     <Compile Include="NouFlightPlan.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -103,6 +109,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="InfoAvio.resx">
       <DependentUpon>InfoAvio.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IntroduirLlista.resx">
+      <DependentUpon>IntroduirLlista.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NouFlightPlan.resx">
       <DependentUpon>NouFlightPlan.cs</DependentUpon>

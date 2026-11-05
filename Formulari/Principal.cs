@@ -43,5 +43,11 @@ namespace Formulari
             form.SetData(milista, temps_cicle, distancia_seguretat);
             form.ShowDialog();
         }
+
+        private void introduirLLISTAToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            IntroduirLlista form = new IntroduirLlista(milista);
+            form.ShowDialog();
+        }
     }
 }

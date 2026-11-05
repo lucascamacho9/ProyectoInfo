@@ -8,23 +8,14 @@ namespace FlightLib
 {
     public class FlightPlanList
     {
-        FlightPlan[] vector = new FlightPlan[10];
+        List <FlightPlan> vector = new List<FlightPlan>();
         int number = 0;
 
         public int AddFlightPlan(FlightPlan p)
         {
-            if (number == 10)
-            {
-                return -1;
-            }
-            else
-            {
-                vector[number] = p;
-                number++;
-                return 0;
-            }
-
-
+            vector.Add(p);
+            number++;
+            return 0;
         }
         public FlightPlan GetFlightPlan(int i)
         {
@@ -45,11 +36,9 @@ namespace FlightLib
             {
                 vector[i].Mover(tiempo);
                 i++;
-
             }
         }
         
-
         public void EscribeConsola()
         {
             int i = 0;
@@ -76,7 +65,6 @@ namespace FlightLib
         {
             return this.number;
         }
-
 
     }
 }
