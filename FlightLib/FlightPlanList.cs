@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace FlightLib
 {
@@ -64,6 +65,34 @@ namespace FlightLib
         public int GetNumber()
         {
             return this.number;
+        }
+
+        public int escrivirListaFichero(string nom_fitxer)
+        {
+            StreamWriter W = new StreamWriter(nom_fitxer);
+            int i = 0;
+            try
+            {
+                while (i < number)
+                {
+                    FlightPlan f = vector[i];
+                    W.WriteLine(f.GetID() + " " + f.GetCompany() + " " + f.GetCurrentPosition().GetX() + " " + f.GetCurrentPosition().GetY() + " " + f.GetFinalPosition().GetX() + " " + f.GetFinalPosition().GetY() + " " + f.GetVelocidad());
+                    i++;
+                }
+                W.Close();
+            }
+            catch (FileNotFoundException)
+            {
+                Console.WriteLine("No existeix cap fitxer amb aquest nom.");
+                return -1;
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Error en el format del fitxer");
+                return -2;
+            }
+
+            return 0;
         }
 
     }

@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace Formulari
 {
     public partial class Simular : Form
@@ -400,6 +401,25 @@ namespace Formulari
             VerificarConflictosActuales();
             panelSimular.Invalidate();
         }
+
+        private void buttonGuardarFlights_Click(object sender, EventArgs e)
+        {
+            string nombreArchivo = nomfitxerBOX.Text;
+            int resultado = miLista.escrivirListaFichero(nombreArchivo);
+            if (resultado == 0)
+            {
+                MessageBox.Show("Datos guardados correctamente.");
+            }
+            else if (resultado == -1)
+            {
+                MessageBox.Show("Error: No se encontró el archivo.");
+            }
+            else if (resultado == -2)
+            {
+                MessageBox.Show("Error: Formato incorrecto en el archivo.");
+            }
+        }
+
         
     }
 }

@@ -37,6 +37,9 @@
             this.PredecirButton = new System.Windows.Forms.Button();
             this.lblAlerta = new System.Windows.Forms.Label();
             this.Restart = new System.Windows.Forms.Button();
+            this.buttonGuardarFlights = new System.Windows.Forms.Button();
+            this.nomfitxerBOX = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // panelSimular
@@ -51,7 +54,7 @@
             // 
             // buttonMoure
             // 
-            this.buttonMoure.Location = new System.Drawing.Point(39, 26);
+            this.buttonMoure.Location = new System.Drawing.Point(39, 12);
             this.buttonMoure.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonMoure.Name = "buttonMoure";
             this.buttonMoure.Size = new System.Drawing.Size(190, 72);
@@ -62,7 +65,7 @@
             // 
             // buttonLinia
             // 
-            this.buttonLinia.Location = new System.Drawing.Point(39, 105);
+            this.buttonLinia.Location = new System.Drawing.Point(39, 91);
             this.buttonLinia.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonLinia.Name = "buttonLinia";
             this.buttonLinia.Size = new System.Drawing.Size(190, 62);
@@ -73,7 +76,7 @@
             // 
             // buttonElipse
             // 
-            this.buttonElipse.Location = new System.Drawing.Point(39, 174);
+            this.buttonElipse.Location = new System.Drawing.Point(39, 160);
             this.buttonElipse.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonElipse.Name = "buttonElipse";
             this.buttonElipse.Size = new System.Drawing.Size(190, 72);
@@ -85,7 +88,7 @@
             // buttonAutomatic
             // 
             this.buttonAutomatic.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.buttonAutomatic.Location = new System.Drawing.Point(39, 256);
+            this.buttonAutomatic.Location = new System.Drawing.Point(39, 242);
             this.buttonAutomatic.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonAutomatic.Name = "buttonAutomatic";
             this.buttonAutomatic.Size = new System.Drawing.Size(190, 56);
@@ -96,7 +99,7 @@
             // 
             // buttonDades
             // 
-            this.buttonDades.Location = new System.Drawing.Point(39, 379);
+            this.buttonDades.Location = new System.Drawing.Point(39, 365);
             this.buttonDades.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonDades.Name = "buttonDades";
             this.buttonDades.Size = new System.Drawing.Size(190, 58);
@@ -108,7 +111,7 @@
             // PredecirButton
             // 
             this.PredecirButton.BackColor = System.Drawing.Color.White;
-            this.PredecirButton.Location = new System.Drawing.Point(39, 318);
+            this.PredecirButton.Location = new System.Drawing.Point(39, 304);
             this.PredecirButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.PredecirButton.Name = "PredecirButton";
             this.PredecirButton.Size = new System.Drawing.Size(190, 56);
@@ -127,7 +130,7 @@
             // 
             // Restart
             // 
-            this.Restart.Location = new System.Drawing.Point(39, 520);
+            this.Restart.Location = new System.Drawing.Point(39, 551);
             this.Restart.Name = "Restart";
             this.Restart.Size = new System.Drawing.Size(190, 54);
             this.Restart.TabIndex = 8;
@@ -135,11 +138,40 @@
             this.Restart.UseVisualStyleBackColor = true;
             this.Restart.Click += new System.EventHandler(this.Restart_Click);
             // 
+            // buttonGuardarFlights
+            // 
+            this.buttonGuardarFlights.Location = new System.Drawing.Point(27, 494);
+            this.buttonGuardarFlights.Name = "buttonGuardarFlights";
+            this.buttonGuardarFlights.Size = new System.Drawing.Size(218, 51);
+            this.buttonGuardarFlights.TabIndex = 9;
+            this.buttonGuardarFlights.Text = "Guardar Vols en un Fitxer";
+            this.buttonGuardarFlights.UseVisualStyleBackColor = true;
+            this.buttonGuardarFlights.Click += new System.EventHandler(this.buttonGuardarFlights_Click);
+            // 
+            // nomfitxerBOX
+            // 
+            this.nomfitxerBOX.Location = new System.Drawing.Point(72, 462);
+            this.nomfitxerBOX.Name = "nomfitxerBOX";
+            this.nomfitxerBOX.Size = new System.Drawing.Size(138, 26);
+            this.nomfitxerBOX.TabIndex = 10;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(68, 432);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(129, 20);
+            this.label1.TabIndex = 11;
+            this.label1.Text = "Nom del FITXER";
+            // 
             // Simular
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1207, 617);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.nomfitxerBOX);
+            this.Controls.Add(this.buttonGuardarFlights);
             this.Controls.Add(this.Restart);
             this.Controls.Add(this.lblAlerta);
             this.Controls.Add(this.buttonAutomatic);
@@ -169,5 +201,8 @@
         private System.Windows.Forms.Button PredecirButton;
         private System.Windows.Forms.Label lblAlerta;
         private System.Windows.Forms.Button Restart;
+        private System.Windows.Forms.Button buttonGuardarFlights;
+        private System.Windows.Forms.TextBox nomfitxerBOX;
+        private System.Windows.Forms.Label label1;
     }
 }
