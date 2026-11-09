@@ -21,8 +21,6 @@ namespace Formulari
 
         // Picture boxes per representar els avions
         PictureBox[] vuelos;
-        bool mostrarLinies = false;
-        bool mostrarElipses = false;
         bool MoureAutomatic = false;
         Timer timerAutomatic;
 
@@ -56,6 +54,7 @@ namespace Formulari
         {
             bool alerta = false;
 
+            //Comprobamos distancias entre todos los aviones
             for (int i = 0; i < miLista.GetNumber(); i++)
             {
                 for (int j = i + 1; j < miLista.GetNumber(); j++)
@@ -78,14 +77,12 @@ namespace Formulari
             // Acción visual
             if (alerta)
             {
-                panelSimular.BackColor = Color.LightCoral;
                 lblAlerta.Text = "¡Peligro! Distancia de seguridad infringida.";
                 lblAlerta.ForeColor = Color.Red;
             }
 
             else
             {
-                panelSimular.BackColor = Color.FromArgb(255, 255, 128);
                 lblAlerta.Text = "Separación segura.";
                 lblAlerta.ForeColor = Color.Green;
             }
@@ -243,19 +240,6 @@ namespace Formulari
         {
             MoureAvions();
         }
-
-        private void buttonLinia_Click(object sender, EventArgs e)
-        {
-            mostrarLinies = !mostrarLinies;
-            panelSimular.Invalidate();
-        }
-
-        private void buttonElipse_Click(object sender, EventArgs e)
-        {
-            mostrarElipses = !mostrarElipses;
-            panelSimular.Invalidate();
-        }
-
         private void buttonAutomatic_Click(object sender, EventArgs e)
         {
             MoureAutomatic = !MoureAutomatic;
@@ -265,39 +249,66 @@ namespace Formulari
 
         private void panelSimular_Paint(object sender, PaintEventArgs e)
         {
-            if (miLista == null)
+            if (miLista == null) return;
+
+            // Calculamos los conflictos
+            int numAviones = miLista.GetNumber();
+            bool[] dibujadoEnConflicto = new bool[numAviones];
+
+            for (int i = 0; i < numAviones; i++)
             {
-                return;
+                for (int j = i + 1; j < numAviones; j++)
+                {
+                    Position posA = miLista.GetFlightPlan(i).GetCurrentPosition();
+                    Position posB = miLista.GetFlightPlan(j).GetCurrentPosition();
+
+                    double difX = posA.GetX() - posB.GetX();
+                    double difY = posA.GetY() - posB.GetY();
+                    double distancia = Math.Sqrt((difX * difX) + (difY * difY));
+
+                    if (distancia < 2 * distancia_seguretat)
+                    {
+                        dibujadoEnConflicto[i] = true;
+                        dibujadoEnConflicto[j] = true;
+                    }
+                }
             }
+
+            // Dibujamos las trayectorias y las elipses
             using (Pen penLinia = new Pen(Color.Red, 2))
-            using (Pen penElipse = new Pen(Color.Blue, 1))
+            using (Pen penElipseNormal = new Pen(Color.Blue, 1))
+            using (Pen penElipseConflicto = new Pen(Color.Red, 2)) // Borde rojo grueso
+            using (Brush brushConflicto = new SolidBrush(Color.FromArgb(100, 255, 0, 0))) // Rojo semitransparente
             using (Font fontID = new Font("Arial", 8, FontStyle.Bold))
             using (Brush brushID = new SolidBrush(Color.Black))
             {
                 float r = ToPixels(distancia_seguretat);
-                int i = 0;
-                while (i < miLista.GetNumber())
+
+                for (int i = 0; i < numAviones; i++)
                 {
                     FlightPlan f = miLista.GetFlightPlan(i);
                     Position pos = f.GetCurrentPosition();
                     float px = ToPixels(pos.GetX());
                     float py = ToPixels(pos.GetY());
 
-                    if (mostrarLinies)
+                    Position fin = f.GetFinalPosition();
+
+                    // Línea de trayectoria
+                    e.Graphics.DrawLine(penLinia, px, py, ToPixels(fin.GetX()), ToPixels(fin.GetY()));
+
+                    // Elipse de seguridad
+                    if (dibujadoEnConflicto[i])
                     {
-                        Position fin = f.GetFinalPosition();
-                        // Dibuixar la línia de trajectòria
-                        // Pen penLinia = new Pen(Color.Red, 2);
-                        e.Graphics.DrawLine(penLinia, px, py, ToPixels(fin.GetX()), ToPixels(fin.GetY()));
+                        e.Graphics.FillEllipse(brushConflicto, px - r, py - r, 2 * r, 2 * r);
+                        e.Graphics.DrawEllipse(penElipseConflicto, px - r, py - r, 2 * r, 2 * r);
                     }
-                    if (mostrarElipses)
+                    else
                     {
-                        //Pen penElipse = new Pen(Color.Blue, 1);
-                        e.Graphics.DrawEllipse(penElipse, px - r, py - r, 2 * r, 2 * r);
+                        e.Graphics.DrawEllipse(penElipseNormal, px - r, py - r, 2 * r, 2 * r);
                     }
-                    Position posID = f.GetCurrentPosition();
+
+                    // ID del vuelo
                     e.Graphics.DrawString(f.GetID(), fontID, brushID, px + 8, py - 18);
-                    i++;
                 }
             }
         }
@@ -420,7 +431,23 @@ namespace Formulari
             }
         }
 
-        
+        private void buttonRetroceder_Click(object sender, EventArgs e)
+        {
+            // Retrocedemos el ciclo pasando el tiempo en negativo
+            miLista.Mover(-temps_cicle);
+
+            int i = 0;
+            while (i < miLista.GetNumber())
+            {
+                FlightPlan f = miLista.GetFlightPlan(i);
+                Position pos = f.GetCurrentPosition();
+                ColocarAvio(vuelos[i], pos);
+                i = i + 1;
+            }
+
+            VerificarConflictosActuales();
+            panelSimular.Invalidate();
+        }
     }
 }
   
