@@ -29,39 +29,22 @@ namespace Formulari
 
         private void buttonAcceptar_Click(object sender, EventArgs e)
         {
-            string nomFitxer = textBoxNomFitxer.Text;
-            FlightPlanList nova = new FlightPlanList();
-            StreamReader R = new StreamReader(nomFitxer);
-            int i = 0;
-            try
+            List<FlightPlan> nova = milista.leerFichero(textBoxNomFitxer.Text);
+            if (nova==null)
             {
-                string linia = R.ReadLine();
-                while (linia != null)
+                MessageBox.Show("Error al leer el fichero");
+            }
+            else
+            {
+                int k = 0;
+                while (k < nova.Count)
                 {
-                    string[] parts = linia.Split(' ');
-                    string id = parts[0];
-                    string company = parts[1];
-                    double cpx = Convert.ToDouble(parts[2]);
-                    double cpy = Convert.ToDouble(parts[3]);
-                    double fpx = Convert.ToDouble(parts[4]);
-                    double fpy = Convert.ToDouble(parts[5]);
-                    double velocidad = Convert.ToDouble(parts[6]);
-                    FlightPlan flightPlan = new FlightPlan (id, company, cpx, cpy, fpx, fpy, velocidad);
-                    nova.AddFlightPlan(flightPlan);
-                    i = i + 1;
-                    linia = R.ReadLine();
+                    milista.AddFlightPlan(nova[k]);
+                    k++;
                 }
+                MessageBox.Show("Se han añadido " + k + " planes de vuelo a la lista");
+                Close();
             }
-            catch (FileNotFoundException)
-            {
-                MessageBox.Show("No s'ha trobat el fitxer");
-            }
-            catch (FormatException)
-            {
-                MessageBox.Show("El fitxer no té el format correcte");
-            }
-    
-            R.Close();
         }
     }
 }

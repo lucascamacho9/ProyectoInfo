@@ -53,9 +53,9 @@
             // 
             this.oPCIONSToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fORMULARIToolStripMenuItem,
+            this.introduirLLISTAToolStripMenuItem,
             this.fToolStripMenuItem,
-            this.simularToolStripMenuItem,
-            this.introduirLLISTAToolStripMenuItem});
+            this.simularToolStripMenuItem});
             this.oPCIONSToolStripMenuItem.Name = "oPCIONSToolStripMenuItem";
             this.oPCIONSToolStripMenuItem.Size = new System.Drawing.Size(105, 29);
             this.oPCIONSToolStripMenuItem.Text = "OPCIONS";

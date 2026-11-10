@@ -14,7 +14,7 @@ namespace Formulari
 {
     public partial class NouFlightPlan : Form
     {
-        private int MAX_FLIGHT_PLANS = 2;
+        
         private FlightPlanList listaprincipal;
         public NouFlightPlan(FlightPlanList listaqueentra)
         {
@@ -52,8 +52,8 @@ namespace Formulari
                     FlightPlan p = new FlightPlan(IDBox.Text, textBoxCompany.Text, Convert.ToDouble(pXiBox.Text), Convert.ToDouble(pYiBox.Text), Convert.ToDouble(pXfBox.Text), Convert.ToDouble(pYfBox.Text), Convert.ToDouble(velocityBox.Text));
                     listaprincipal.AddFlightPlan(p);
                     MessageBox.Show("s'ha afegit correctament");
-                    MAX_FLIGHT_PLANS++;
-                    countFP++;
+                    
+                    this.countFP++;
 
                     IDBox.Clear();
                     textBoxCompany.Clear();

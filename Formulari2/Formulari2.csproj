@@ -52,7 +52,6 @@
     <Compile Include="Formulari2.Designer.cs">
       <DependentUpon>Formulari2.cs</DependentUpon>
     </Compile>
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Formulari2.resx">
       <DependentUpon>Formulari2.cs</DependentUpon>

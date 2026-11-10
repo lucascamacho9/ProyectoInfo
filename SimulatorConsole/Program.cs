@@ -36,8 +36,10 @@ namespace SimulatorConsole
                 trozos = linea.Split(' ');
                 double fx = Convert.ToDouble(trozos[0]);
                 double fy = Convert.ToDouble(trozos[1]);
+                Console.WriteLine("Escribe el nombre de la compañia");
+                string company = Console.ReadLine();
 
-                FlightPlan plan_a = new FlightPlan(identificador, ix, iy, fx, fy, velocidad);
+                FlightPlan plan_a = new FlightPlan(identificador, company, ix, iy, fx, fy, velocidad);
 
                 Console.WriteLine("Escribe el identificador");
                 //   string nombre = Console.ReadLine();
@@ -61,7 +63,10 @@ namespace SimulatorConsole
                 fx = Convert.ToDouble(trozos[0]);
                 fy = Convert.ToDouble(trozos[1]);
 
-                FlightPlan plan_b = new FlightPlan(identificador, ix, iy, fx, fy, velocidad);
+                Console.WriteLine("Escribe el nombre de la compañia");
+                company = Console.ReadLine();
+
+                FlightPlan plan_b = new FlightPlan(identificador, company, ix, iy, fx, fy, velocidad);
 
                 lista.AddFlightPlan(plan_a);
                 lista.AddFlightPlan(plan_b);
