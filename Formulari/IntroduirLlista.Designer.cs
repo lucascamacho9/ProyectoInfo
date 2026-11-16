@@ -32,12 +32,15 @@
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxNomFitxer = new System.Windows.Forms.TextBox();
             this.buttonClose = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonAcceptar
             // 
             this.buttonAcceptar.BackColor = System.Drawing.Color.Lime;
-            this.buttonAcceptar.Location = new System.Drawing.Point(403, 271);
+            this.buttonAcceptar.Location = new System.Drawing.Point(402, 346);
             this.buttonAcceptar.Name = "buttonAcceptar";
             this.buttonAcceptar.Size = new System.Drawing.Size(200, 50);
             this.buttonAcceptar.TabIndex = 0;
@@ -48,17 +51,17 @@
             // label1
             // 
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(134, 191);
+            this.label1.Location = new System.Drawing.Point(81, 228);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(381, 43);
             this.label1.TabIndex = 1;
-            this.label1.Text = "NOM DEL FITXER";
+            this.label1.Text = "ubicació del fitxer / nom";
             // 
             // textBoxNomFitxer
             // 
-            this.textBoxNomFitxer.Location = new System.Drawing.Point(549, 201);
+            this.textBoxNomFitxer.Location = new System.Drawing.Point(462, 238);
             this.textBoxNomFitxer.Name = "textBoxNomFitxer";
-            this.textBoxNomFitxer.Size = new System.Drawing.Size(142, 26);
+            this.textBoxNomFitxer.Size = new System.Drawing.Size(481, 26);
             this.textBoxNomFitxer.TabIndex = 2;
             // 
             // buttonClose
@@ -72,11 +75,36 @@
             this.buttonClose.UseVisualStyleBackColor = false;
             this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
             // 
+            // label2
+            // 
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(119, 84);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(381, 43);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "buscador de fitxers";
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(462, 77);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(214, 60);
+            this.button1.TabIndex = 5;
+            this.button1.Text = "OBRIR BUSCADOR";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // IntroduirLlista
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1081, 560);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.buttonClose);
             this.Controls.Add(this.textBoxNomFitxer);
             this.Controls.Add(this.label1);
@@ -94,5 +122,8 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBoxNomFitxer;
         private System.Windows.Forms.Button buttonClose;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.Button button1;
     }
 }
