@@ -131,7 +131,7 @@ namespace FlightLib
             }
 
         }
-
+         
         public void Reestart()
         {
             currentPosition = new Position(initialPosition.GetX(), initialPosition.GetY());
