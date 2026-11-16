@@ -186,6 +186,8 @@ namespace FlightLib
             {
                 tmin = -(dX * dVx + dY * dVy) / v2;
             }
+            if (tmin < 0)
+                tmin = 0;
             if (tmin > tFinal)
                 tmin = tFinal;
 

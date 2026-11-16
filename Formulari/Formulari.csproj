@@ -54,6 +54,12 @@
     <Compile Include="Dades.Designer.cs">
       <DependentUpon>Dades.cs</DependentUpon>
     </Compile>
+    <Compile Include="datagrid.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="datagrid.Designer.cs">
+      <DependentUpon>datagrid.cs</DependentUpon>
+    </Compile>
     <Compile Include="Distancia_Entre_Vols.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -100,6 +106,9 @@
     </Compile>
     <EmbeddedResource Include="Dades.resx">
       <DependentUpon>Dades.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="datagrid.resx">
+      <DependentUpon>datagrid.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Distancia_Entre_Vols.resx">
       <DependentUpon>Distancia_Entre_Vols.cs</DependentUpon>

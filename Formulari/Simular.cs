@@ -129,7 +129,6 @@ namespace Formulari
         private void ComprovarConflicteInicial()
         {
             int n = miLista.GetNumber();
-            string llistaconflictes = "";
             int numConflictes = 0;
             for (int i = 0; i < n; i++)
             {
@@ -143,38 +142,100 @@ namespace Formulari
                     }
                 }
             }
-            
-    
+
             {
-                DialogResult resposta = MessageBox.Show ("es preveuen " + numConflictes + " conflictes" + "\n"+
-                    "Vols resoldre'ls canviant la seva velocitat?", "Conflictes", MessageBoxButtons.YesNo);
+                DialogResult resposta = MessageBox.Show("es preveuen " + numConflictes + " conflictes" + "\n" +
+                    "Vols veure el canvi de velocitat/s proposat/s?", "Conflictes", MessageBoxButtons.YesNo);
                 if (resposta == DialogResult.Yes)
                 {
+                    double[] velocidadesOriginales = new double[n];
+                    for (int k = 0; k < n; k++)
+                    {
+                        velocidadesOriginales[k] = miLista.GetFlightPlan(k).GetVelocidad();
+                    }
+
+                    // 2. Intentamos resolver los conflictos en cascada con un límite de iteraciones
+                    bool cambioRealizado = true;
+                    int iteraciones = 0;
+                    int maxIteraciones = 15;
+
+                    while (cambioRealizado && iteraciones < maxIteraciones)
+                    {
+                        cambioRealizado = false;
+
+                        for (int i = 0; i < n; i++)
+                        {
+                            for (int j = i + 1; j < n; j++)
+                            {
+                                FlightPlan a = miLista.GetFlightPlan(i);
+                                FlightPlan b = miLista.GetFlightPlan(j);
+
+                                if (a.PreverConflictos(b, distancia_seguretat))
+                                {
+                                    double velAntesA = a.GetVelocidad();
+                                    double velAntesB = b.GetVelocidad();
+
+                                    a.ResoldreConflicte(b, distancia_seguretat);
+
+                                    // Evitamos que la velocidad se degrade hacia 0 tras varias pasadas
+                                    if (a.GetVelocidad() < 5.0) a.SetVelocidad(velAntesA);
+                                    if (b.GetVelocidad() < 5.0) b.SetVelocidad(velAntesB);
+
+                                    if (a.GetVelocidad() != velAntesA || b.GetVelocidad() != velAntesB)
+                                    {
+                                        cambioRealizado = true;
+                                    }
+                                }
+                            }
+                        }
+                        iteraciones++;
+                    }
+
+                    // 3. Comprobamos fríamente si siguen quedando conflictos irresolubles
+                    int conflictosRestantes = 0;
                     for (int i = 0; i < n; i++)
                     {
                         for (int j = i + 1; j < n; j++)
                         {
-                            FlightPlan a = miLista.GetFlightPlan(i);
-                            FlightPlan b = miLista.GetFlightPlan(j);
-                            if (a.PreverConflictos(b, distancia_seguretat))
+                            if (miLista.GetFlightPlan(i).PreverConflictos(miLista.GetFlightPlan(j), distancia_seguretat))
                             {
-                                double velocidadinicial1 = a.GetVelocidad();
-                                double velocidadinicial2 = b.GetVelocidad();
-                                a.ResoldreConflicte(b, distancia_seguretat);
-                                double velocidadfinal1 = a.GetVelocidad();
-                                double velocidadfinal2 = b.GetVelocidad();
-                                if (velocidadinicial1 != velocidadfinal1)
-                                {
-                                    MessageBox.Show("S'ha canviat la velocitat del vol " + a.GetID() + " de " + velocidadinicial1 + " a " + velocidadfinal1);
-                                }
-                                if (velocidadinicial2 != velocidadfinal2)
-                                {
-                                    MessageBox.Show("S'ha canviat la velocitat del vol " + b.GetID() + " de " + velocidadinicial2 + " a " + velocidadfinal2);
-                                }
+                                conflictosRestantes++;
                             }
                         }
                     }
-                }   
+
+                    if (conflictosRestantes > 0)
+                    {
+                        MessageBox.Show(
+                            "Atenció: No s'han pogut resoldre tots els conflictes canviant la velocitat.\n" +
+                            "Encara queden " + conflictosRestantes + " conflicte/s sense solució possible.",
+                            "Conflictes irresolubles",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning);
+                    }
+
+                    // 4. Recogemos los vuelos que sí tienen una propuesta de cambio válida
+                    FlightPlanList llistaconflictes = new FlightPlanList();
+                    List<double> velocitatsinicials = new List<double>();
+
+                    for (int k = 0; k < n; k++)
+                    {
+                        FlightPlan vuelo = miLista.GetFlightPlan(k);
+                        if (vuelo.GetVelocidad() != velocidadesOriginales[k])
+                        {
+                            llistaconflictes.AddFlightPlan(vuelo);
+                            velocitatsinicials.Add(velocidadesOriginales[k]);
+                        }
+                    }
+
+                    // 5. Solo abrimos el DataGridView si hay alguna propuesta que mostrar
+                    if (llistaconflictes.GetNumber() > 0)
+                    {
+                        datagrid form = new datagrid();
+                        form.TomaInfo(llistaconflictes, velocitatsinicials);
+                        form.ShowDialog();
+                    }
+                }
             }
         }
 
@@ -448,7 +509,7 @@ namespace Formulari
             VerificarConflictosActuales();
             panelSimular.Invalidate();
         }
-    }
+    
+}
 }
   
-
