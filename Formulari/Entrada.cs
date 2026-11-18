@@ -41,19 +41,28 @@ namespace Formulari
 
             else
             {
-                string nom = nomBox.Text;
-                int edat = Convert.ToInt32(EDATBox.Text);
-                string contrassenya1 = ContrassenyaBox1.Text;
-                string contrassenya2 = ContrassenyaBox2.Text;
-                int resultat = miGestor.InsertarCliente(nom, edat, contrassenya1);
-                if (resultat != 0)
+                try
                 {
-                    MessageBox.Show("Client registrat correctament.");
+                    string nom = nomBox.Text;
+                    int edat = Convert.ToInt32(EDATBox.Text);
+                    string contrassenya1 = ContrassenyaBox1.Text;
+                    string contrassenya2 = ContrassenyaBox2.Text;
+                    int resultat = miGestor.InsertarCliente(nom, edat, contrassenya1);
+                    if (resultat != 0)
+                    {
+                        MessageBox.Show("Client registrat correctament.");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error al registrar el client.");
+                    }
                 }
-                else
+
+                catch (FormatException)
                 {
-                    MessageBox.Show("Error al registrar el client.");
+                    MessageBox.Show("Escriu bé en els camps de text");
                 }
+                
             }                   
         }
 
