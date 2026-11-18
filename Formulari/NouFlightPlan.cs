@@ -25,7 +25,7 @@ namespace Formulari
         private void afegirButton_Click(object sender, EventArgs e)
         {
 
-            if (IDBox.Text== null || pXiBox.Text == null || pYiBox.Text == null || string.IsNullOrWhiteSpace(pXfBox.Text) || string.IsNullOrWhiteSpace(pYfBox.Text) || string.IsNullOrWhiteSpace(velocityBox.Text))
+            if (IDBox.Text== null || pXiBox.Text == null || pYiBox.Text == null || pXfBox.Text==null || string.IsNullOrWhiteSpace(pYfBox.Text) || string.IsNullOrWhiteSpace(velocityBox.Text))
             {
                 MessageBox.Show("Has d'omplir tots els camps abans d'afegir.");
                 return;
@@ -42,7 +42,7 @@ namespace Formulari
 
             try
             {
-                if ((Convert.ToDouble(pXiBox.Text) != 0 && Convert.ToDouble(pYiBox.Text) != 0 && Convert.ToDouble(pXfBox.Text) != 0 && Convert.ToDouble(pYfBox.Text) != 0 && Convert.ToDouble(velocityBox.Text) != 0)|| (Convert.ToDouble(pXiBox.Text) != 100 && Convert.ToDouble(pYiBox.Text) !=100 && Convert.ToDouble(pXfBox.Text) != 100 && Convert.ToDouble(pYfBox.Text) != 100 && Convert.ToDouble(velocityBox.Text) != 100))
+                if ((Convert.ToDouble(pXiBox.Text) != 0 && Convert.ToDouble(pXiBox.Text) != 100 && Convert.ToDouble(pYiBox.Text) != 0 && Convert.ToDouble(pYiBox.Text) != 100) || (Convert.ToDouble(pXfBox.Text) != 0 && Convert.ToDouble(pXfBox.Text) != 100 && Convert.ToDouble(pYfBox.Text) != 0 && Convert.ToDouble(pYfBox.Text) != 100))
                 {
                     MessageBox.Show("Els vols han de tenir una entrada i sortida en el perímetre");
                     return;
