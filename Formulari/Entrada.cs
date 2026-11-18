@@ -73,16 +73,23 @@ namespace Formulari
 
             else
             {
-                if (miGestor.ClienteRegistrado(nomBox.Text, Convert.ToInt32(EDATBox.Text), ContrassenyaBox1.Text))
+                try
                 {
-                    MessageBox.Show("Accés correcte.");
-                    Form Princiapl = new Principal();
-                    Princiapl.Show();
-                }
+                    if (miGestor.ClienteRegistrado(nomBox.Text, Convert.ToInt32(EDATBox.Text), ContrassenyaBox1.Text))
+                    {
+                        MessageBox.Show("Accés correcte.");
+                        Form Princiapl = new Principal();
+                        Princiapl.Show();
+                    }
 
-                else
+                    else
+                    {
+                        MessageBox.Show("Accés incorrecte.");
+                    }
+                }
+                catch (FormatException)
                 {
-                    MessageBox.Show("Accés incorrecte.");
+                    MessageBox.Show("escriu correctament en els camps de text");
                 }
             }
         }
