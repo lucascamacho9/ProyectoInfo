@@ -67,14 +67,10 @@ namespace Formulari
             else
             {
                 FlightPlan altre = miLista.GetFlightPlan(1 - e.RowIndex);
-                if (altre == null)
-                        MessageBox.Show("Cal tenir 2 vols per calcular la distància");
-                else
-                {
-                    Distancia_Entre_Vols form = new Distancia_Entre_Vols();
-                    form.setFlightPlans(seleccionat, altre);
-                    form.ShowDialog();
-                }
+                
+                Distancia_Entre_Vols form = new Distancia_Entre_Vols();
+                form.setFlightPlans(seleccionat, miLista);
+                form.ShowDialog();
                 
             }
         }
