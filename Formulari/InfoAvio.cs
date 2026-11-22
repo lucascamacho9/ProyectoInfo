@@ -30,6 +30,7 @@ namespace Formulari
             XBox.Text = myFlight.GetCurrentPosition().GetX().ToString("F2");
             YBox.Text = myFlight.GetCurrentPosition().GetY().ToString("F2");
             speedBox.Text = myFlight.GetVelocidad().ToString("F2");
+            companyiaBox.Text = myFlight.GetCompany();
 
             /// XBox.Text = Convert.ToString(myFlight.GetCurrentPosition().GetX());
             /// YBox.Text = Convert.ToString(myFlight.GetCurrentPosition().GetY());
@@ -48,5 +49,6 @@ namespace Formulari
             speedBox.Text = myFlight.GetVelocidad().ToString("F2");
             canviVelocitatBox.Clear();
         }
+
     }
 }

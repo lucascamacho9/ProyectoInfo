@@ -30,7 +30,8 @@
         {
             this.buttonTancar = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.distanciaBox = new System.Windows.Forms.TextBox();
+            this.distanciaGridView = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.distanciaGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonTancar
@@ -49,29 +50,34 @@
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(233, 112);
+            this.label1.Location = new System.Drawing.Point(233, 44);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(290, 32);
             this.label1.TabIndex = 1;
             this.label1.Text = "Distància Entre Vols";
             // 
-            // distanciaBox
+            // distanciaGridView
             // 
-            this.distanciaBox.Location = new System.Drawing.Point(297, 188);
-            this.distanciaBox.Name = "distanciaBox";
-            this.distanciaBox.Size = new System.Drawing.Size(157, 26);
-            this.distanciaBox.TabIndex = 2;
+            this.distanciaGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.distanciaGridView.Location = new System.Drawing.Point(84, 96);
+            this.distanciaGridView.Name = "distanciaGridView";
+            this.distanciaGridView.RowHeadersWidth = 62;
+            this.distanciaGridView.RowTemplate.Height = 28;
+            this.distanciaGridView.Size = new System.Drawing.Size(584, 253);
+            this.distanciaGridView.TabIndex = 2;
             // 
             // Distancia_Entre_Vols
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.distanciaBox);
+            this.Controls.Add(this.distanciaGridView);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonTancar);
             this.Name = "Distancia_Entre_Vols";
             this.Text = "Distancia_Entre_Vols";
+            this.Load += new System.EventHandler(this.Distancia_Entre_Vols_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.distanciaGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -81,6 +87,6 @@
 
         private System.Windows.Forms.Button buttonTancar;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox distanciaBox;
+        private System.Windows.Forms.DataGridView distanciaGridView;
     }
 }

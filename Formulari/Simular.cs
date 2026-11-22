@@ -30,7 +30,7 @@ namespace Formulari
             InitializeComponent();
             panelSimular.ClientSize = new Size(600, 600);
             timerAutomatic = new Timer();
-            timerAutomatic.Interval = 250; // 250 ms entre movimientos
+            timerAutomatic.Interval = 250; // 250 ms entre movimientos 
             timerAutomatic.Tick += timerAutomatic_Tick;
         }
 
