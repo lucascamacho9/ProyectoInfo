@@ -16,6 +16,7 @@ namespace FlightLib
         Position currentPosition; // posicion actual
         Position finalPosition; // posicion final
         double velocidad;
+        Stack<Position> historialPosiciones;
 
         // Constructures
         public FlightPlan(string id, string company,double cpx, double cpy, double fpx, double fpy, double velocidad)
@@ -26,6 +27,7 @@ namespace FlightLib
             this.currentPosition = new Position(cpx, cpy);
             this.finalPosition = new Position(fpx, fpy);
             this.velocidad = velocidad;
+            this.historialPosiciones = new Stack<Position>();
         }
 
         // Metodos
@@ -103,6 +105,8 @@ namespace FlightLib
         public void Mover(double tiempo)
         // Mueve el vuelo a la posición correspondiente a viajar durante el tiempo que se recibe como parámetro
         {
+            historialPosiciones.Push(new Position(currentPosition.GetX(), currentPosition.GetY()));
+
             bool ha_llegado = false;
             if (HasArrived())
             {
@@ -131,9 +135,19 @@ namespace FlightLib
             }
 
         }
-         
+
+        public bool Retroceder()
+        {
+            if (historialPosiciones.Count > 0)
+            {
+                currentPosition = historialPosiciones.Pop();
+                return true;
+            }
+            return false;
+        }
         public void Reestart()
         {
+            historialPosiciones.Clear();
             currentPosition = new Position(initialPosition.GetX(), initialPosition.GetY());
         }
 

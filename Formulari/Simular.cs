@@ -16,7 +16,6 @@ namespace Formulari
     {
         FlightPlanList miLista;
         FlightPlanList listaOriginal;
-        Stack<FlightPlanList> historial = new Stack<FlightPlanList>();
         int temps_cicle;
         double distancia_seguretat;
 
@@ -35,9 +34,7 @@ namespace Formulari
         }
 
         private void MoureAvions()
-        {
-            historial.Push(CrearCopia(miLista)); // Guardamos el estado actual antes de mover
-            
+        {      
             miLista.Mover(temps_cicle);
             int i = 0;
             while (i < miLista.GetNumber())
@@ -498,27 +495,28 @@ namespace Formulari
 
         private void buttonRetroceder_Click(object sender, EventArgs e)
         {
-            // Si estaba en modo automático, lo pausamos para poder retroceder paso a paso
+            // Pausamos el modo automático si estaba activo
             if (MoureAutomatic)
             {
                 MoureAutomatic = false;
                 timerAutomatic.Enabled = false;
             }
 
-            // Comprobamos que haya al menos un paso guardado para deshacer
-            if (historial.Count > 0)
-            {
-                // Recuperamos el último estado guardado
-                miLista = historial.Pop();
+            bool seHaRetrocedido = false;
 
-                // Actualizamos la posición visual de cada avión
-                for (int i = 0; i < miLista.GetNumber(); i++)
+            for (int i = 0; i < miLista.GetNumber(); i++)
+            {
+                FlightPlan f = miLista.GetFlightPlan(i);
+                if (f.Retroceder())
                 {
-                    FlightPlan f = miLista.GetFlightPlan(i);
+                    seHaRetrocedido = true;
                     Position pos = f.GetCurrentPosition();
                     ColocarAvio(vuelos[i], pos);
                 }
+            }
 
+            if (seHaRetrocedido)
+            {
                 VerificarConflictosActuales();
                 panelSimular.Invalidate();
             }
