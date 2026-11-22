@@ -16,6 +16,7 @@ namespace Formulari
     {
         FlightPlanList miLista;
         FlightPlanList listaOriginal;
+        Stack<FlightPlanList> historial = new Stack<FlightPlanList>();
         int temps_cicle;
         double distancia_seguretat;
 
@@ -35,6 +36,8 @@ namespace Formulari
 
         private void MoureAvions()
         {
+            historial.Push(CrearCopia(miLista)); // Guardamos el estado actual antes de mover
+            
             miLista.Mover(temps_cicle);
             int i = 0;
             while (i < miLista.GetNumber())
@@ -143,6 +146,7 @@ namespace Formulari
                 }
             }
 
+            if (numConflictes > 0)
             {
                 DialogResult resposta = MessageBox.Show("es preveuen " + numConflictes + " conflictes" + "\n" +
                     "Vols veure el canvi de velocitat/s proposat/s?", "Conflictes", MessageBoxButtons.YesNo);
@@ -494,22 +498,35 @@ namespace Formulari
 
         private void buttonRetroceder_Click(object sender, EventArgs e)
         {
-            // Retrocedemos el ciclo pasando el tiempo en negativo
-            miLista.Mover(-temps_cicle);
-
-            int i = 0;
-            while (i < miLista.GetNumber())
+            // Si estaba en modo automático, lo pausamos para poder retroceder paso a paso
+            if (MoureAutomatic)
             {
-                FlightPlan f = miLista.GetFlightPlan(i);
-                Position pos = f.GetCurrentPosition();
-                ColocarAvio(vuelos[i], pos);
-                i = i + 1;
+                MoureAutomatic = false;
+                timerAutomatic.Enabled = false;
             }
 
-            VerificarConflictosActuales();
-            panelSimular.Invalidate();
+            // Comprobamos que haya al menos un paso guardado para deshacer
+            if (historial.Count > 0)
+            {
+                // Recuperamos el último estado guardado
+                miLista = historial.Pop();
+
+                // Actualizamos la posición visual de cada avión
+                for (int i = 0; i < miLista.GetNumber(); i++)
+                {
+                    FlightPlan f = miLista.GetFlightPlan(i);
+                    Position pos = f.GetCurrentPosition();
+                    ColocarAvio(vuelos[i], pos);
+                }
+
+                VerificarConflictosActuales();
+                panelSimular.Invalidate();
+            }
+            else
+            {
+                MessageBox.Show("No hay pasos anteriores para deshacer.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
+    }
     
 }
-}
-  
